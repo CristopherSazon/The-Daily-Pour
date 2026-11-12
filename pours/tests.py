@@ -52,6 +52,9 @@ class MenuApiTests(TestCase):
         self.assertContains(response, 'The Daily Classics')
         self.assertContains(response, 'Come by')
         self.assertContains(response, 'pours/site.css')
+        self.assertContains(response, 'Your order')
+        self.assertContains(response, 'Add to order')
+        self.assertContains(response, 'As soon as possible')
 
     def test_price_label_keeps_centavos(self):
         item = MenuItem.objects.get(slug='cloud-matcha')
