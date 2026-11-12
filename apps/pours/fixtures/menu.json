@@ -1,0 +1,1685 @@
+[
+  {
+    "model": "pours.category",
+    "pk": 1,
+    "fields": {
+      "name": "Daily Classics",
+      "slug": "daily-classics",
+      "position": 1
+    }
+  },
+  {
+    "model": "pours.category",
+    "pk": 2,
+    "fields": {
+      "name": "The Signature Pour",
+      "slug": "signature-pour",
+      "position": 2
+    }
+  },
+  {
+    "model": "pours.category",
+    "pk": 3,
+    "fields": {
+      "name": "The Custom Pour",
+      "slug": "custom-pour",
+      "position": 3
+    }
+  },
+  {
+    "model": "pours.category",
+    "pk": 4,
+    "fields": {
+      "name": "The Matcha Edit",
+      "slug": "matcha-edit",
+      "position": 4
+    }
+  },
+  {
+    "model": "pours.category",
+    "pk": 5,
+    "fields": {
+      "name": "The Daily Bites",
+      "slug": "daily-bites",
+      "position": 5
+    }
+  },
+  {
+    "model": "pours.menuitem",
+    "pk": 1,
+    "fields": {
+      "category": 1,
+      "name": "Double espresso",
+      "slug": "double-espresso",
+      "description": "A short, balanced pour with a golden crema and a clean finish.",
+      "notes": "Rich, chocolate-led, and intentionally simple.",
+      "price": "105.00",
+      "image": "/menu/daily-classics.png",
+      "image_alt": "Double espresso in a small ceramic cup on linen.",
+      "menu_number": "01",
+      "image_index": 0,
+      "featured_image": "",
+      "method": "Pulled fresh and served straight, with sparkling water on the side.",
+      "is_featured": false,
+      "featured_position": null,
+      "position": 1
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 1,
+    "fields": {
+      "item": 1,
+      "text": "18 g freshly ground espresso",
+      "position": 1
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 2,
+    "fields": {
+      "item": 1,
+      "text": "36 g espresso yield",
+      "position": 2
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 3,
+    "fields": {
+      "item": 1,
+      "text": "Filtered water",
+      "position": 3
+    }
+  },
+  {
+    "model": "pours.menuitem",
+    "pk": 2,
+    "fields": {
+      "category": 1,
+      "name": "Long black",
+      "slug": "long-black",
+      "description": "A slow-sipped cup that keeps the character of the espresso bright.",
+      "notes": "Clear and rounded, with a gentle citrus lift.",
+      "price": "125.00",
+      "image": "/menu/daily-classics.png",
+      "image_alt": "Black coffee in a glass cup on a wooden coaster.",
+      "menu_number": "02",
+      "image_index": 1,
+      "featured_image": "",
+      "method": "Pour espresso over hot water to keep the crema soft and aromatic.",
+      "is_featured": false,
+      "featured_position": null,
+      "position": 2
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 4,
+    "fields": {
+      "item": 2,
+      "text": "2 shots espresso",
+      "position": 1
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 5,
+    "fields": {
+      "item": 2,
+      "text": "150 ml hot filtered water",
+      "position": 2
+    }
+  },
+  {
+    "model": "pours.menuitem",
+    "pk": 3,
+    "fields": {
+      "category": 1,
+      "name": "Cappuccino",
+      "slug": "cappuccino",
+      "description": "A classic balance of espresso, warm milk, and a cloud of fine foam.",
+      "notes": "Comforting, velvety, and not too sweet.",
+      "price": "160.00",
+      "image": "/menu/daily-classics.png",
+      "image_alt": "Cappuccino in a cream cup with simple latte art.",
+      "menu_number": "03",
+      "image_index": 2,
+      "featured_image": "",
+      "method": "Steam milk until silky, pour over espresso, and finish with a light rosette.",
+      "is_featured": false,
+      "featured_position": null,
+      "position": 3
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 6,
+    "fields": {
+      "item": 3,
+      "text": "2 shots espresso",
+      "position": 1
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 7,
+    "fields": {
+      "item": 3,
+      "text": "120 ml whole milk",
+      "position": 2
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 8,
+    "fields": {
+      "item": 3,
+      "text": "A soft layer of milk foam",
+      "position": 3
+    }
+  },
+  {
+    "model": "pours.menuitem",
+    "pk": 4,
+    "fields": {
+      "category": 1,
+      "name": "Flat white",
+      "slug": "flat-white",
+      "description": "A smooth double shot with a thin, glossy layer of microfoam.",
+      "notes": "A little stronger, with a satin-smooth finish.",
+      "price": "165.00",
+      "image": "/menu/daily-classics.png",
+      "image_alt": "Flat white in a speckled ceramic cup with latte art.",
+      "menu_number": "04",
+      "image_index": 3,
+      "featured_image": "",
+      "method": "Stretch milk to a fine microfoam and pour steadily through the center.",
+      "is_featured": false,
+      "featured_position": null,
+      "position": 4
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 9,
+    "fields": {
+      "item": 4,
+      "text": "2 shots espresso",
+      "position": 1
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 10,
+    "fields": {
+      "item": 4,
+      "text": "150 ml whole milk",
+      "position": 2
+    }
+  },
+  {
+    "model": "pours.menuitem",
+    "pk": 5,
+    "fields": {
+      "category": 1,
+      "name": "Vanilla latte",
+      "slug": "vanilla-latte",
+      "description": "House espresso and steamed milk with a soft touch of real vanilla.",
+      "notes": "Available hot or iced. Choose dairy or oat milk.",
+      "price": "185.00",
+      "image": "/menu/daily-classics.png",
+      "image_alt": "Iced vanilla latte in a clear glass with a creamy swirl.",
+      "menu_number": "05",
+      "image_index": 4,
+      "featured_image": "",
+      "method": "Stir vanilla into espresso, then add steamed milk or pour over ice.",
+      "is_featured": false,
+      "featured_position": null,
+      "position": 5
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 11,
+    "fields": {
+      "item": 5,
+      "text": "2 shots espresso",
+      "position": 1
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 12,
+    "fields": {
+      "item": 5,
+      "text": "180 ml milk of choice",
+      "position": 2
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 13,
+    "fields": {
+      "item": 5,
+      "text": "10 ml vanilla syrup",
+      "position": 3
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 14,
+    "fields": {
+      "item": 5,
+      "text": "Ice for the iced version",
+      "position": 4
+    }
+  },
+  {
+    "model": "pours.menuitem",
+    "pk": 6,
+    "fields": {
+      "category": 1,
+      "name": "Spanish latte",
+      "slug": "spanish-latte",
+      "description": "A creamy espresso favorite with a mellow hint of condensed milk.",
+      "notes": "Silky, gently sweet, and especially good over ice.",
+      "price": "190.00",
+      "image": "/menu/daily-classics.png",
+      "image_alt": "Spanish latte over ice in a clear glass.",
+      "menu_number": "06",
+      "image_index": 5,
+      "featured_image": "",
+      "method": "Blend condensed milk into espresso, add milk, and serve warm or over ice.",
+      "is_featured": false,
+      "featured_position": null,
+      "position": 6
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 15,
+    "fields": {
+      "item": 6,
+      "text": "2 shots espresso",
+      "position": 1
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 16,
+    "fields": {
+      "item": 6,
+      "text": "150 ml milk",
+      "position": 2
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 17,
+    "fields": {
+      "item": 6,
+      "text": "20 ml condensed milk",
+      "position": 3
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 18,
+    "fields": {
+      "item": 6,
+      "text": "Ice for the iced version",
+      "position": 4
+    }
+  },
+  {
+    "model": "pours.menuitem",
+    "pk": 7,
+    "fields": {
+      "category": 2,
+      "name": "Honey oat latte",
+      "slug": "honey-oat-latte",
+      "description": "Floral honey, a silky oat pour, and the familiar warmth of espresso.",
+      "notes": "Our house favorite. Available warm or iced.",
+      "price": "185.00",
+      "image": "/menu/signature-pour.png",
+      "image_alt": "Iced honey oat latte with a soft oat-milk swirl.",
+      "menu_number": "01",
+      "image_index": 0,
+      "featured_image": "/daily-pour-signature.png",
+      "method": "Stir honey into espresso, add oat milk, and finish with a gentle swirl.",
+      "is_featured": true,
+      "featured_position": 1,
+      "position": 1
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 19,
+    "fields": {
+      "item": 7,
+      "text": "2 shots espresso",
+      "position": 1
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 20,
+    "fields": {
+      "item": 7,
+      "text": "180 ml oat milk",
+      "position": 2
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 21,
+    "fields": {
+      "item": 7,
+      "text": "10 ml honey syrup",
+      "position": 3
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 22,
+    "fields": {
+      "item": 7,
+      "text": "Ice for the iced version",
+      "position": 4
+    }
+  },
+  {
+    "model": "pours.menuitem",
+    "pk": 8,
+    "fields": {
+      "category": 2,
+      "name": "Brown butter latte",
+      "slug": "brown-butter-latte",
+      "description": "Nutty brown-butter syrup gives a classic latte a toasted finish.",
+      "notes": "Contains milk. Warm, rounded, and softly caramelized.",
+      "price": "205.00",
+      "image": "/menu/signature-pour.png",
+      "image_alt": "Brown butter latte in a cream ceramic cup.",
+      "menu_number": "02",
+      "image_index": 1,
+      "featured_image": "",
+      "method": "Stir syrup into espresso, add silky milk, and finish with a light foam.",
+      "is_featured": false,
+      "featured_position": null,
+      "position": 2
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 23,
+    "fields": {
+      "item": 8,
+      "text": "2 shots espresso",
+      "position": 1
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 24,
+    "fields": {
+      "item": 8,
+      "text": "180 ml steamed milk",
+      "position": 2
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 25,
+    "fields": {
+      "item": 8,
+      "text": "15 ml brown-butter syrup",
+      "position": 3
+    }
+  },
+  {
+    "model": "pours.menuitem",
+    "pk": 9,
+    "fields": {
+      "category": 2,
+      "name": "Sea salt caramel cold brew",
+      "slug": "sea-salt-caramel-cold-brew",
+      "description": "Slow-steeped coffee, house caramel, and a pinch of sea salt.",
+      "notes": "Smooth and lightly sweet with a clean finish.",
+      "price": "195.00",
+      "image": "/menu/signature-pour.png",
+      "image_alt": "Salted caramel cold brew with a delicate cream float.",
+      "menu_number": "03",
+      "image_index": 2,
+      "featured_image": "",
+      "method": "Stir caramel and salt into cold brew, then pour over fresh ice.",
+      "is_featured": false,
+      "featured_position": null,
+      "position": 3
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 26,
+    "fields": {
+      "item": 9,
+      "text": "150 ml house cold brew",
+      "position": 1
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 27,
+    "fields": {
+      "item": 9,
+      "text": "15 ml caramel syrup",
+      "position": 2
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 28,
+    "fields": {
+      "item": 9,
+      "text": "A pinch of sea salt",
+      "position": 3
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 29,
+    "fields": {
+      "item": 9,
+      "text": "Ice",
+      "position": 4
+    }
+  },
+  {
+    "model": "pours.menuitem",
+    "pk": 10,
+    "fields": {
+      "category": 2,
+      "name": "Pandan cream cold brew",
+      "slug": "pandan-cream-cold-brew",
+      "description": "A bright cold brew finished with fragrant pandan cream.",
+      "notes": "Contains milk. Inspired by a familiar Filipino flavor.",
+      "price": "210.00",
+      "image": "/menu/signature-pour.png",
+      "image_alt": "Pandan cream cold brew with a pandan leaf garnish.",
+      "menu_number": "04",
+      "image_index": 3,
+      "featured_image": "",
+      "method": "Pour cold brew over ice and float the lightly whipped pandan cream.",
+      "is_featured": false,
+      "featured_position": null,
+      "position": 4
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 30,
+    "fields": {
+      "item": 10,
+      "text": "150 ml house cold brew",
+      "position": 1
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 31,
+    "fields": {
+      "item": 10,
+      "text": "30 ml pandan cream",
+      "position": 2
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 32,
+    "fields": {
+      "item": 10,
+      "text": "Ice",
+      "position": 3
+    }
+  },
+  {
+    "model": "pours.menuitem",
+    "pk": 11,
+    "fields": {
+      "category": 2,
+      "name": "Ube cloud latte",
+      "slug": "ube-cloud-latte",
+      "description": "Velvety ube and milk meet espresso beneath a soft cream cap.",
+      "notes": "Contains milk. Floral, mellow, and gently sweet.",
+      "price": "205.00",
+      "image": "/menu/signature-pour.png",
+      "image_alt": "Lilac ube latte topped with a soft cream cloud.",
+      "menu_number": "05",
+      "image_index": 4,
+      "featured_image": "",
+      "method": "Stir ube into cold milk, layer over espresso, and crown with cream foam.",
+      "is_featured": false,
+      "featured_position": null,
+      "position": 5
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 33,
+    "fields": {
+      "item": 11,
+      "text": "2 shots espresso",
+      "position": 1
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 34,
+    "fields": {
+      "item": 11,
+      "text": "160 ml milk",
+      "position": 2
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 35,
+    "fields": {
+      "item": 11,
+      "text": "20 ml ube syrup",
+      "position": 3
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 36,
+    "fields": {
+      "item": 11,
+      "text": "A spoon of cream foam",
+      "position": 4
+    }
+  },
+  {
+    "model": "pours.menuitem",
+    "pk": 12,
+    "fields": {
+      "category": 2,
+      "name": "Maple cinnamon cappuccino",
+      "slug": "maple-cinnamon-cappuccino",
+      "description": "A little maple and warming cinnamon folded into a foamy cappuccino.",
+      "notes": "Contains milk. Cozy without feeling too sweet.",
+      "price": "195.00",
+      "image": "/menu/signature-pour.png",
+      "image_alt": "Cinnamon cappuccino in a ceramic cup with a light dusting.",
+      "menu_number": "06",
+      "image_index": 5,
+      "featured_image": "",
+      "method": "Stir maple into espresso, pour in foamed milk, and dust with cinnamon.",
+      "is_featured": false,
+      "featured_position": null,
+      "position": 6
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 37,
+    "fields": {
+      "item": 12,
+      "text": "2 shots espresso",
+      "position": 1
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 38,
+    "fields": {
+      "item": 12,
+      "text": "120 ml steamed milk",
+      "position": 2
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 39,
+    "fields": {
+      "item": 12,
+      "text": "10 ml maple syrup",
+      "position": 3
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 40,
+    "fields": {
+      "item": 12,
+      "text": "A pinch of cinnamon",
+      "position": 4
+    }
+  },
+  {
+    "model": "pours.menuitem",
+    "pk": 13,
+    "fields": {
+      "category": 3,
+      "name": "Lavender honey americano",
+      "slug": "lavender-honey-americano",
+      "description": "A bright espresso long drink softened with floral honey.",
+      "notes": "Lightly floral. Ask for it sparkling when available.",
+      "price": "185.00",
+      "image": "/menu/custom-pour.png",
+      "image_alt": "Honey americano with a lavender sprig beside the cup.",
+      "menu_number": "01",
+      "image_index": 0,
+      "featured_image": "",
+      "method": "Dissolve lavender honey into espresso and top with hot water or ice water.",
+      "is_featured": false,
+      "featured_position": null,
+      "position": 1
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 41,
+    "fields": {
+      "item": 13,
+      "text": "2 shots espresso",
+      "position": 1
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 42,
+    "fields": {
+      "item": 13,
+      "text": "150 ml chilled or hot water",
+      "position": 2
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 43,
+    "fields": {
+      "item": 13,
+      "text": "10 ml lavender honey",
+      "position": 3
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 44,
+    "fields": {
+      "item": 13,
+      "text": "Ice for the iced version",
+      "position": 4
+    }
+  },
+  {
+    "model": "pours.menuitem",
+    "pk": 14,
+    "fields": {
+      "category": 3,
+      "name": "Toasted vanilla shaker",
+      "slug": "toasted-vanilla-shaker",
+      "description": "Espresso shaken hard with toasted vanilla and plenty of ice.",
+      "notes": "Contains milk when finished with the optional splash.",
+      "price": "195.00",
+      "image": "/menu/custom-pour.png",
+      "image_alt": "Toasted vanilla shaken espresso in a clear glass.",
+      "menu_number": "02",
+      "image_index": 1,
+      "featured_image": "",
+      "method": "Shake espresso, syrup, and ice until foamy; strain and finish with milk.",
+      "is_featured": false,
+      "featured_position": null,
+      "position": 2
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 45,
+    "fields": {
+      "item": 14,
+      "text": "2 shots espresso",
+      "position": 1
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 46,
+    "fields": {
+      "item": 14,
+      "text": "12 ml toasted vanilla syrup",
+      "position": 2
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 47,
+    "fields": {
+      "item": 14,
+      "text": "A splash of milk",
+      "position": 3
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 48,
+    "fields": {
+      "item": 14,
+      "text": "Ice",
+      "position": 4
+    }
+  },
+  {
+    "model": "pours.menuitem",
+    "pk": 15,
+    "fields": {
+      "category": 3,
+      "name": "Orange espresso tonic",
+      "slug": "orange-espresso-tonic",
+      "description": "A lively mix of espresso, tonic, and a bright orange finish.",
+      "notes": "Citrusy, crisp, and naturally bubbly.",
+      "price": "195.00",
+      "image": "/menu/custom-pour.png",
+      "image_alt": "Espresso tonic with a thin orange wheel in a stemmed glass.",
+      "menu_number": "03",
+      "image_index": 2,
+      "featured_image": "",
+      "method": "Build tonic over ice, then slowly float espresso and add orange.",
+      "is_featured": false,
+      "featured_position": null,
+      "position": 3
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 49,
+    "fields": {
+      "item": 15,
+      "text": "1 shot espresso",
+      "position": 1
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 50,
+    "fields": {
+      "item": 15,
+      "text": "120 ml tonic water",
+      "position": 2
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 51,
+    "fields": {
+      "item": 15,
+      "text": "A thin orange wheel",
+      "position": 3
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 52,
+    "fields": {
+      "item": 15,
+      "text": "Ice",
+      "position": 4
+    }
+  },
+  {
+    "model": "pours.menuitem",
+    "pk": 16,
+    "fields": {
+      "category": 3,
+      "name": "Brown sugar shaken espresso",
+      "slug": "brown-sugar-shaken-espresso",
+      "description": "Bold espresso shaken with brown sugar and a touch of cinnamon.",
+      "notes": "Make it yours with dairy or oat milk.",
+      "price": "195.00",
+      "image": "/menu/custom-pour.png",
+      "image_alt": "Brown sugar shaken espresso over ice with cinnamon.",
+      "menu_number": "04",
+      "image_index": 3,
+      "featured_image": "",
+      "method": "Shake espresso, syrup, cinnamon, and ice until frothy; top as you like.",
+      "is_featured": false,
+      "featured_position": null,
+      "position": 4
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 53,
+    "fields": {
+      "item": 16,
+      "text": "2 shots espresso",
+      "position": 1
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 54,
+    "fields": {
+      "item": 16,
+      "text": "12 ml brown-sugar syrup",
+      "position": 2
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 55,
+    "fields": {
+      "item": 16,
+      "text": "A pinch of cinnamon",
+      "position": 3
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 56,
+    "fields": {
+      "item": 16,
+      "text": "Ice",
+      "position": 4
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 57,
+    "fields": {
+      "item": 16,
+      "text": "A splash of milk, optional",
+      "position": 5
+    }
+  },
+  {
+    "model": "pours.menuitem",
+    "pk": 17,
+    "fields": {
+      "category": 3,
+      "name": "Cocoa sea-salt mocha",
+      "slug": "cocoa-sea-salt-mocha",
+      "description": "Dark cocoa, espresso, and a tiny pinch of sea salt.",
+      "notes": "A deep chocolate note, balanced rather than sweet.",
+      "price": "210.00",
+      "image": "/menu/custom-pour.png",
+      "image_alt": "Cocoa mocha with a fine dusting of cocoa and salt.",
+      "menu_number": "05",
+      "image_index": 4,
+      "featured_image": "",
+      "method": "Whisk cocoa with espresso, add steamed milk, and finish with sea salt.",
+      "is_featured": false,
+      "featured_position": null,
+      "position": 5
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 58,
+    "fields": {
+      "item": 17,
+      "text": "2 shots espresso",
+      "position": 1
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 59,
+    "fields": {
+      "item": 17,
+      "text": "15 g dark cocoa",
+      "position": 2
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 60,
+    "fields": {
+      "item": 17,
+      "text": "180 ml milk of choice",
+      "position": 3
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 61,
+    "fields": {
+      "item": 17,
+      "text": "A pinch of sea salt",
+      "position": 4
+    }
+  },
+  {
+    "model": "pours.menuitem",
+    "pk": 18,
+    "fields": {
+      "category": 3,
+      "name": "Honey cinnamon cortado",
+      "slug": "honey-cinnamon-cortado",
+      "description": "A compact espresso and milk pour with honey and a little spice.",
+      "notes": "Contains milk. Small, balanced, and quietly comforting.",
+      "price": "170.00",
+      "image": "/menu/custom-pour.png",
+      "image_alt": "Honey cinnamon cortado in a small glass.",
+      "menu_number": "06",
+      "image_index": 5,
+      "featured_image": "",
+      "method": "Stir honey into espresso, add equal parts steamed milk, and dust lightly.",
+      "is_featured": false,
+      "featured_position": null,
+      "position": 6
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 62,
+    "fields": {
+      "item": 18,
+      "text": "2 shots espresso",
+      "position": 1
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 63,
+    "fields": {
+      "item": 18,
+      "text": "60 ml steamed milk",
+      "position": 2
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 64,
+    "fields": {
+      "item": 18,
+      "text": "5 ml honey",
+      "position": 3
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 65,
+    "fields": {
+      "item": 18,
+      "text": "A pinch of cinnamon",
+      "position": 4
+    }
+  },
+  {
+    "model": "pours.menuitem",
+    "pk": 19,
+    "fields": {
+      "category": 4,
+      "name": "Cloud matcha",
+      "slug": "cloud-matcha",
+      "description": "Ceremonial matcha, softly whisked and finished with a creamy cap.",
+      "notes": "Available warm or iced. Ask for oat milk or dairy.",
+      "price": "195.00",
+      "image": "/menu/matcha-edit.png",
+      "image_alt": "Layered green matcha latte with a soft cream cloud.",
+      "menu_number": "01",
+      "image_index": 0,
+      "featured_image": "/daily-pour-matcha.png",
+      "method": "Whisk matcha smooth, pour over milk, and finish with cream foam.",
+      "is_featured": true,
+      "featured_position": 2,
+      "position": 1
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 66,
+    "fields": {
+      "item": 19,
+      "text": "2 g matcha powder",
+      "position": 1
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 67,
+    "fields": {
+      "item": 19,
+      "text": "30 ml warm water",
+      "position": 2
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 68,
+    "fields": {
+      "item": 19,
+      "text": "160 ml oat milk",
+      "position": 3
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 69,
+    "fields": {
+      "item": 19,
+      "text": "A spoon of cream foam",
+      "position": 4
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 70,
+    "fields": {
+      "item": 19,
+      "text": "Ice for the iced version",
+      "position": 5
+    }
+  },
+  {
+    "model": "pours.menuitem",
+    "pk": 20,
+    "fields": {
+      "category": 4,
+      "name": "Strawberry matcha",
+      "slug": "strawberry-matcha",
+      "description": "Fresh strawberry and vivid matcha layered over cold milk.",
+      "notes": "Contains milk. Gently fruity, never syrupy.",
+      "price": "220.00",
+      "image": "/menu/matcha-edit.png",
+      "image_alt": "Pink strawberry pur\u00e9e layered with bright green matcha.",
+      "menu_number": "02",
+      "image_index": 1,
+      "featured_image": "",
+      "method": "Add strawberry pur\u00e9e and milk to ice, then float freshly whisked matcha.",
+      "is_featured": false,
+      "featured_position": null,
+      "position": 2
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 71,
+    "fields": {
+      "item": 20,
+      "text": "2 g matcha powder",
+      "position": 1
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 72,
+    "fields": {
+      "item": 20,
+      "text": "30 ml warm water",
+      "position": 2
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 73,
+    "fields": {
+      "item": 20,
+      "text": "25 g strawberry pur\u00e9e",
+      "position": 3
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 74,
+    "fields": {
+      "item": 20,
+      "text": "150 ml milk",
+      "position": 4
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 75,
+    "fields": {
+      "item": 20,
+      "text": "Ice",
+      "position": 5
+    }
+  },
+  {
+    "model": "pours.menuitem",
+    "pk": 21,
+    "fields": {
+      "category": 4,
+      "name": "Mango matcha",
+      "slug": "mango-matcha",
+      "description": "Ripe mango and gently grassy matcha in a sunny iced pour.",
+      "notes": "Contains oats as prepared. Dairy-free when made with oat milk.",
+      "price": "220.00",
+      "image": "/menu/matcha-edit.png",
+      "image_alt": "Golden mango and green matcha latte in a clear glass.",
+      "menu_number": "03",
+      "image_index": 2,
+      "featured_image": "",
+      "method": "Layer mango and oat milk over ice, then top with whisked matcha.",
+      "is_featured": false,
+      "featured_position": null,
+      "position": 3
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 76,
+    "fields": {
+      "item": 21,
+      "text": "2 g matcha powder",
+      "position": 1
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 77,
+    "fields": {
+      "item": 21,
+      "text": "30 ml warm water",
+      "position": 2
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 78,
+    "fields": {
+      "item": 21,
+      "text": "30 g mango pur\u00e9e",
+      "position": 3
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 79,
+    "fields": {
+      "item": 21,
+      "text": "150 ml oat milk",
+      "position": 4
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 80,
+    "fields": {
+      "item": 21,
+      "text": "Ice",
+      "position": 5
+    }
+  },
+  {
+    "model": "pours.menuitem",
+    "pk": 22,
+    "fields": {
+      "category": 4,
+      "name": "Coconut matcha",
+      "slug": "coconut-matcha",
+      "description": "A fresh matcha latte lifted with mellow coconut milk.",
+      "notes": "Dairy-free as prepared. Light, creamy, and refreshing.",
+      "price": "210.00",
+      "image": "/menu/matcha-edit.png",
+      "image_alt": "Iced coconut matcha latte with a pale green swirl.",
+      "menu_number": "04",
+      "image_index": 3,
+      "featured_image": "",
+      "method": "Whisk matcha until smooth and pour over chilled coconut milk.",
+      "is_featured": false,
+      "featured_position": null,
+      "position": 4
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 81,
+    "fields": {
+      "item": 22,
+      "text": "2 g matcha powder",
+      "position": 1
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 82,
+    "fields": {
+      "item": 22,
+      "text": "30 ml warm water",
+      "position": 2
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 83,
+    "fields": {
+      "item": 22,
+      "text": "170 ml coconut milk",
+      "position": 3
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 84,
+    "fields": {
+      "item": 22,
+      "text": "Ice",
+      "position": 4
+    }
+  },
+  {
+    "model": "pours.menuitem",
+    "pk": 23,
+    "fields": {
+      "category": 4,
+      "name": "Vanilla matcha",
+      "slug": "vanilla-matcha",
+      "description": "A soft vanilla note rounds out fresh, ceremonial matcha.",
+      "notes": "Contains milk unless prepared with a plant milk.",
+      "price": "205.00",
+      "image": "/menu/matcha-edit.png",
+      "image_alt": "Warm vanilla matcha latte in a cream ceramic cup.",
+      "menu_number": "05",
+      "image_index": 4,
+      "featured_image": "",
+      "method": "Whisk matcha with warm water, add vanilla, then pour in silky milk.",
+      "is_featured": false,
+      "featured_position": null,
+      "position": 5
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 85,
+    "fields": {
+      "item": 23,
+      "text": "2 g matcha powder",
+      "position": 1
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 86,
+    "fields": {
+      "item": 23,
+      "text": "30 ml warm water",
+      "position": 2
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 87,
+    "fields": {
+      "item": 23,
+      "text": "170 ml steamed milk",
+      "position": 3
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 88,
+    "fields": {
+      "item": 23,
+      "text": "8 ml vanilla syrup",
+      "position": 4
+    }
+  },
+  {
+    "model": "pours.menuitem",
+    "pk": 24,
+    "fields": {
+      "category": 4,
+      "name": "Dirty matcha",
+      "slug": "dirty-matcha",
+      "description": "A shot of espresso meets earthy matcha for a layered pick-me-up.",
+      "notes": "Contains milk unless prepared with a plant milk.",
+      "price": "220.00",
+      "image": "/menu/matcha-edit.png",
+      "image_alt": "Green matcha latte topped with a dark espresso layer.",
+      "menu_number": "06",
+      "image_index": 5,
+      "featured_image": "",
+      "method": "Pour milk over ice, add whisked matcha, then float a fresh espresso shot.",
+      "is_featured": false,
+      "featured_position": null,
+      "position": 6
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 89,
+    "fields": {
+      "item": 24,
+      "text": "2 g matcha powder",
+      "position": 1
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 90,
+    "fields": {
+      "item": 24,
+      "text": "30 ml warm water",
+      "position": 2
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 91,
+    "fields": {
+      "item": 24,
+      "text": "150 ml milk",
+      "position": 3
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 92,
+    "fields": {
+      "item": 24,
+      "text": "1 shot espresso",
+      "position": 4
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 93,
+    "fields": {
+      "item": 24,
+      "text": "Ice",
+      "position": 5
+    }
+  },
+  {
+    "model": "pours.menuitem",
+    "pk": 25,
+    "fields": {
+      "category": 5,
+      "name": "Butter croissant",
+      "slug": "butter-croissant",
+      "description": "Golden, flaky layers with a tender center and a rich butter finish.",
+      "notes": "Contains wheat, milk, and egg.",
+      "price": "145.00",
+      "image": "/menu/daily-bites.png",
+      "image_alt": "Golden butter croissant on a cream ceramic plate.",
+      "menu_number": "01",
+      "image_index": 0,
+      "featured_image": "/daily-pour-pastry.png",
+      "method": "Fold butter through the dough, proof until airy, then bake until deeply golden.",
+      "is_featured": true,
+      "featured_position": 3,
+      "position": 1
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 94,
+    "fields": {
+      "item": 25,
+      "text": "Wheat flour and cultured butter",
+      "position": 1
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 95,
+    "fields": {
+      "item": 25,
+      "text": "Milk, yeast, sugar, and sea salt",
+      "position": 2
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 96,
+    "fields": {
+      "item": 25,
+      "text": "Egg wash for a glossy finish",
+      "position": 3
+    }
+  },
+  {
+    "model": "pours.menuitem",
+    "pk": 26,
+    "fields": {
+      "category": 5,
+      "name": "Almond croissant",
+      "slug": "almond-croissant",
+      "description": "A twice-baked croissant with almond cream and crisp toasted flakes.",
+      "notes": "Contains wheat, milk, egg, and tree nuts.",
+      "price": "180.00",
+      "image": "/menu/daily-bites.png",
+      "image_alt": "Almond croissant topped with toasted sliced almonds.",
+      "menu_number": "02",
+      "image_index": 1,
+      "featured_image": "",
+      "method": "Fill and bake until the outside is crisp and the almond center is soft.",
+      "is_featured": false,
+      "featured_position": null,
+      "position": 2
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 97,
+    "fields": {
+      "item": 26,
+      "text": "Butter croissant",
+      "position": 1
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 98,
+    "fields": {
+      "item": 26,
+      "text": "Almond cream",
+      "position": 2
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 99,
+    "fields": {
+      "item": 26,
+      "text": "Toasted sliced almonds",
+      "position": 3
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 100,
+    "fields": {
+      "item": 26,
+      "text": "A light dusting of sugar",
+      "position": 4
+    }
+  },
+  {
+    "model": "pours.menuitem",
+    "pk": 27,
+    "fields": {
+      "category": 5,
+      "name": "Cinnamon roll",
+      "slug": "cinnamon-roll",
+      "description": "Soft spirals of cinnamon dough with a delicate vanilla glaze.",
+      "notes": "Contains wheat, milk, and egg.",
+      "price": "165.00",
+      "image": "/menu/daily-bites.png",
+      "image_alt": "Soft cinnamon roll with a light glaze on a ceramic plate.",
+      "menu_number": "03",
+      "image_index": 2,
+      "featured_image": "",
+      "method": "Roll the dough around cinnamon sugar, proof until pillowy, and bake.",
+      "is_featured": false,
+      "featured_position": null,
+      "position": 3
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 101,
+    "fields": {
+      "item": 27,
+      "text": "Enriched wheat dough",
+      "position": 1
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 102,
+    "fields": {
+      "item": 27,
+      "text": "Butter and cinnamon sugar",
+      "position": 2
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 103,
+    "fields": {
+      "item": 27,
+      "text": "A light vanilla glaze",
+      "position": 3
+    }
+  },
+  {
+    "model": "pours.menuitem",
+    "pk": 28,
+    "fields": {
+      "category": 5,
+      "name": "Banana loaf",
+      "slug": "banana-loaf",
+      "description": "A tender slice of banana loaf with a little toasted walnut crunch.",
+      "notes": "Contains wheat, milk, egg, and tree nuts.",
+      "price": "150.00",
+      "image": "/menu/daily-bites.png",
+      "image_alt": "Banana bread slice with walnuts on a cream plate.",
+      "menu_number": "04",
+      "image_index": 3,
+      "featured_image": "",
+      "method": "Fold ripe banana through the batter, add walnuts, and bake until tender.",
+      "is_featured": false,
+      "featured_position": null,
+      "position": 4
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 104,
+    "fields": {
+      "item": 28,
+      "text": "Ripe banana",
+      "position": 1
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 105,
+    "fields": {
+      "item": 28,
+      "text": "Wheat flour, butter, and egg",
+      "position": 2
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 106,
+    "fields": {
+      "item": 28,
+      "text": "Toasted walnuts",
+      "position": 3
+    }
+  },
+  {
+    "model": "pours.menuitem",
+    "pk": 29,
+    "fields": {
+      "category": 5,
+      "name": "Blueberry muffin",
+      "slug": "blueberry-muffin",
+      "description": "A golden muffin with juicy blueberries and a tender crumb.",
+      "notes": "Contains wheat, milk, and egg.",
+      "price": "155.00",
+      "image": "/menu/daily-bites.png",
+      "image_alt": "Blueberry muffin with a golden crumb top.",
+      "menu_number": "05",
+      "image_index": 4,
+      "featured_image": "",
+      "method": "Fold blueberries into the batter and bake until the top is golden.",
+      "is_featured": false,
+      "featured_position": null,
+      "position": 5
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 107,
+    "fields": {
+      "item": 29,
+      "text": "Wheat flour and butter",
+      "position": 1
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 108,
+    "fields": {
+      "item": 29,
+      "text": "Blueberries",
+      "position": 2
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 109,
+    "fields": {
+      "item": 29,
+      "text": "Milk, egg, and a little sugar",
+      "position": 3
+    }
+  },
+  {
+    "model": "pours.menuitem",
+    "pk": 30,
+    "fields": {
+      "category": 5,
+      "name": "Chocolate chunk cookie",
+      "slug": "chocolate-chunk-cookie",
+      "description": "A crisp edge, a soft center, and generous dark chocolate pieces.",
+      "notes": "Contains wheat, milk, egg, and soy.",
+      "price": "120.00",
+      "image": "/menu/daily-bites.png",
+      "image_alt": "Chocolate chunk cookie with melted chocolate on a cream plate.",
+      "menu_number": "06",
+      "image_index": 5,
+      "featured_image": "",
+      "method": "Bake until the edges are set and the middle stays soft.",
+      "is_featured": false,
+      "featured_position": null,
+      "position": 6
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 110,
+    "fields": {
+      "item": 30,
+      "text": "Wheat flour, butter, and brown sugar",
+      "position": 1
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 111,
+    "fields": {
+      "item": 30,
+      "text": "Dark chocolate chunks",
+      "position": 2
+    }
+  },
+  {
+    "model": "pours.recipeline",
+    "pk": 112,
+    "fields": {
+      "item": 30,
+      "text": "Egg and a pinch of sea salt",
+      "position": 3
+    }
+  }
+]

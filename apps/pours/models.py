@@ -31,6 +31,9 @@ class MenuItem(models.Model):
         help_text='Path served with the site, such as /daily-pour-signature.png.',
     )
     image_alt = models.CharField(max_length=200, blank=True)
+    menu_number = models.CharField(max_length=2, blank=True)
+    image_index = models.PositiveSmallIntegerField(default=0)
+    featured_image = models.CharField(max_length=255, blank=True)
     method = models.TextField(blank=True)
     is_featured = models.BooleanField(default=False)
     featured_position = models.PositiveSmallIntegerField(null=True, blank=True)
@@ -55,9 +58,7 @@ class MenuItem(models.Model):
 
     @property
     def number(self):
-        if not self.featured_position:
-            return ''
-        return f'{self.featured_position:02d}'
+        return self.menu_number
 
     @property
     def price_label(self):
@@ -71,6 +72,14 @@ class MenuItem(models.Model):
     @property
     def static_image(self):
         filename = self.image.rsplit('/', 1)[-1]
+        if not filename:
+            return ''
+        folder = 'pours/menu' if self.image.startswith('/menu/') else 'pours'
+        return f'{folder}/{filename}'
+
+    @property
+    def static_featured(self):
+        filename = self.featured_image.rsplit('/', 1)[-1]
         if not filename:
             return ''
         return f'pours/{filename}'

@@ -1,26 +1,12 @@
-import json
-from pathlib import Path
-
-from django.core.management import call_command
 from django.db import migrations
-
-FIXTURE = Path(__file__).resolve().parent.parent / 'fixtures' / 'catalog.json'
 
 
 def load_catalog(apps, schema_editor):
-    call_command('loaddata', 'catalog', app_label='pours')
+    pass
 
 
 def unload_catalog(apps, schema_editor):
-    rows = json.loads(FIXTURE.read_text())
-    MenuItem = apps.get_model('pours', 'MenuItem')
-    Category = apps.get_model('pours', 'Category')
-    MenuItem.objects.filter(
-        slug__in=[row['fields']['slug'] for row in rows if row['model'] == 'pours.menuitem']
-    ).delete()
-    Category.objects.filter(
-        slug__in=[row['fields']['slug'] for row in rows if row['model'] == 'pours.category']
-    ).delete()
+    pass
 
 
 class Migration(migrations.Migration):

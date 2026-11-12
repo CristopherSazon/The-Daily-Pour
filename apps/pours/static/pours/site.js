@@ -56,8 +56,10 @@
     chosen.forEach((item) => {
       const line = lineTemplate.content.firstElementChild.cloneNode(true);
       const info = line.querySelectorAll(".order-line-info span, .order-line-info strong");
-      line.querySelector("img").src = item.image;
-      line.querySelector("img").alt = "";
+      const image = line.querySelector("img");
+      image.hidden = !item.image;
+      image.alt = "";
+      if (item.image) image.src = item.image;
       info[0].textContent = item.category_label;
       info[1].textContent = item.name;
       info[2].textContent = item.price_label + " each";
@@ -86,10 +88,17 @@
     const item = bySlug.get(slug);
     if (!item) return;
     currentSlug = slug;
-    photo.src = item.image;
-    photo.alt = item.image_alt;
+    photo.hidden = !item.image;
+    photo.parentElement.classList.toggle("is-plain", !item.image);
+    if (item.image) {
+      photo.src = item.image;
+      photo.alt = item.image_alt || "";
+    } else {
+      photo.removeAttribute("src");
+      photo.alt = "";
+    }
     category.textContent = item.category_label;
-    eyebrow.textContent = item.number ? "A HOUSE FAVORITE · " + item.number : "A HOUSE FAVORITE";
+    eyebrow.textContent = item.number ? "A HOUSE FAVORITE · " + item.number : item.category_label;
     title.textContent = item.name;
     description.textContent = item.description;
     notes.textContent = item.notes;

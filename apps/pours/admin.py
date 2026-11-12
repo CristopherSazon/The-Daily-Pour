@@ -21,7 +21,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(MenuItem)
 class MenuItemAdmin(admin.ModelAdmin):
-    list_display = ('name', 'category', 'price', 'is_featured', 'featured_position')
+    list_display = ('menu_number', 'name', 'category', 'price', 'is_featured')
     list_filter = ('category', 'is_featured')
     search_fields = ('name', 'description')
     prepopulated_fields = {'slug': ('name',)}

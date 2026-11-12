@@ -15,6 +15,13 @@ class MenuService:
     def categories(self):
         return Category.objects.prefetch_related('items__recipe_lines', 'items__category')
 
+    def catalog_items(self):
+        return (
+            MenuItem.objects.select_related('category')
+            .prefetch_related('recipe_lines')
+            .order_by('category__position', 'position', 'name')
+        )
+
     def serialize_item(self, item):
         return {
             'number': item.number or None,
@@ -26,18 +33,30 @@ class MenuService:
             'notes': item.notes,
             'price': f'{item.price:.2f}',
             'price_label': item.price_label,
+            'category_slug': item.category.slug,
             'image': static(item.static_image) if item.static_image else '',
+            'image_index': item.image_index,
             'image_alt': item.image_alt,
+            'featured_image': static(item.static_featured) if item.static_featured else '',
             'method': item.method,
             'recipe': [line.text for line in item.recipe_lines.all()],
         }
 
     def home_context(self):
-        featured = self.featured_items()
+        return {'featured': self.featured_items()}
+
+    def catalog_document(self):
+        categories = self.categories()
         return {
-            'featured': featured,
-            'categories': self.categories(),
-            'featured_json': [self.serialize_item(item) for item in featured],
+            'categories': [
+                {
+                    'name': category.name,
+                    'slug': category.slug,
+                    'count': len(category.items.all()),
+                }
+                for category in categories
+            ],
+            'items': [self.serialize_item(item) for item in self.catalog_items()],
         }
 
     def menu_payload(self):

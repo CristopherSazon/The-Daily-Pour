@@ -1,0 +1,158 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f0e7">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="A familiar favorite or something new. Thoughtful coffee, bright matcha, and a little something lovely on the side.">
+  <title>The Menu — The Daily Pour</title>
+  <link rel="stylesheet" href="{% static 'pours/site.css' %}">
+</head>
+<body>
+  <main class="catalog-page">
+    <nav class="catalog-masthead" aria-label="Menu navigation">
+      <a class="catalog-brand" href="{% url 'home' %}" aria-label="The Daily Pour home">
+        <span>THE DAILY</span><strong>POUR</strong><i aria-hidden="true">/ MENU</i>
+      </a>
+      <div class="catalog-masthead-actions">
+        <a class="catalog-home-link" href="{% url 'home' %}">Back to the café {% include "pours/icon.html" with name="arrow-left" %}</a>
+        <button class="order-open-button catalog-order-button" type="button" aria-haspopup="dialog" aria-label="Open order, 0 items, ₱0">
+          {% include "pours/icon.html" with name="bag" %}
+          <span>Your order</span>
+          <span class="order-count">0</span>
+        </button>
+      </div>
+    </nav>
+
+    <header class="catalog-hero">
+      <div class="catalog-hero-copy">
+        <p class="eyebrow eyebrow-light"><span class="eyebrow-dot"></span> GOOD THINGS, BREWING DAILY</p>
+        <h1>Find your<br><em>everyday.</em></h1>
+        <p class="catalog-hero-description">A familiar favorite or something new. Thoughtful coffee, bright matcha, and a little something lovely on the side.</p>
+      </div>
+      <div class="catalog-hero-aside">
+        <span class="catalog-count">30</span>
+        <span class="catalog-count-label">WAYS TO MAKE<br>TODAY A GOOD ONE</span>
+        <a class="catalog-scroll-link" href="#menu-products">TAKE A LOOK {% include "pours/icon.html" with name="arrow-down" %}</a>
+      </div>
+      <div class="catalog-hero-footer">
+        <span>FIVE COLLECTIONS</span>
+        <span>FRESHLY MADE, ALWAYS</span>
+      </div>
+    </header>
+
+    <section class="catalog-content" id="menu-products" aria-labelledby="catalog-title">
+      <div class="catalog-section-heading">
+        <div>
+          <p class="eyebrow">THE DAILY POUR MENU</p>
+          <h2 id="catalog-title">A little <em>something.</em></h2>
+        </div>
+        <span class="catalog-section-note">Take your time. Find your usual.</span>
+      </div>
+      <div class="catalog-controls">
+        <div class="catalog-category-list" role="group" aria-label="Filter menu by category"></div>
+        <label class="catalog-search">
+          <span class="sr-only">Search menu</span>
+          {% include "pours/icon.html" with name="search" %}
+          <input type="search" placeholder="Find a favorite">
+        </label>
+      </div>
+      <p class="catalog-results" aria-live="polite"></p>
+      <div class="catalog-product-grid" id="catalog-products"></div>
+      <div class="catalog-no-results" hidden>
+        <p>No favorites found just yet.</p>
+        <button type="button">Clear search {% include "pours/icon.html" with name="arrow-right" %}</button>
+      </div>
+      <footer class="catalog-footer">
+        <span>GOOD COFFEE. GOOD COMPANY.</span>
+        <a href="{% url 'home' %}">Back to The Daily Pour {% include "pours/icon.html" with name="arrow-right" %}</a>
+      </footer>
+    </section>
+
+    <dialog class="order-dialog" aria-labelledby="catalog-order-title">
+      <div class="order-dialog-content">
+        <button class="product-dialog-close" type="button" aria-label="Close your order">{% include "pours/icon.html" with name="x" %}</button>
+        <p class="eyebrow">MADE JUST FOR YOU</p>
+        <h2 id="catalog-order-title">Your order.</h2>
+        <div class="order-empty">
+          <p>Your bag is taking a little breather.</p>
+          <button class="button button-dark order-back" type="button">Back to the menu {% include "pours/icon.html" with name="arrow-right" %}</button>
+        </div>
+        <template id="order-line-template">
+          <div class="order-line">
+            <div class="order-line-photo"></div>
+            <div class="order-line-info">
+              <span></span>
+              <strong></strong>
+              <span></span>
+            </div>
+            <div class="order-quantity">
+              <button type="button" data-step="-1">{% include "pours/icon.html" with name="minus" %}</button>
+              <span></span>
+              <button type="button" data-step="1">{% include "pours/icon.html" with name="plus" %}</button>
+            </div>
+          </div>
+        </template>
+        <div class="order-dialog-grid" hidden>
+          <div>
+            <div class="order-lines"></div>
+            <div class="order-total">
+              <span class="order-total-label"></span>
+              <strong></strong>
+            </div>
+          </div>
+          <form class="order-form">
+            {% csrf_token %}
+            <p class="eyebrow">PICKUP DETAILS</p>
+            <label class="order-field" for="customer-name">Your name
+              <input id="customer-name" name="customer-name" autocomplete="name" required>
+            </label>
+            <label class="order-field" for="customer-phone">Phone number
+              <input id="customer-phone" name="customer-phone" autocomplete="tel" type="tel" required>
+            </label>
+            <label class="order-field" for="pickup-time">Pickup time
+              <select id="pickup-time" name="pickup-time" required>
+                <option value="" disabled selected>Choose a pickup window</option>
+                <option>As soon as possible</option>
+                <option>Within 30 minutes</option>
+                <option>Within 1 hour</option>
+              </select>
+            </label>
+            <button class="button button-dark order-submit" type="submit">{% include "pours/icon.html" with name="bag" %} Place your order</button>
+            <p class="order-note">We'll have it ready when you arrive.</p>
+          </form>
+        </div>
+      </div>
+    </dialog>
+
+    <dialog class="product-dialog catalog-detail-dialog" aria-labelledby="catalog-product-title">
+      <div class="product-dialog-layout">
+        <div class="product-dialog-image catalog-detail-image">
+          <span class="product-dialog-category"></span>
+        </div>
+        <div class="product-dialog-content">
+          <button class="product-dialog-close" type="button" aria-label="Close product details">{% include "pours/icon.html" with name="x" %}</button>
+          <p class="eyebrow"></p>
+          <h2 id="catalog-product-title"></h2>
+          <p class="product-dialog-description"></p>
+          <p class="product-dialog-notes"></p>
+          <div class="product-dialog-price">
+            <span>MADE FRESH FOR YOU</span>
+            <strong></strong>
+          </div>
+          <div class="product-recipe">
+            <p class="eyebrow">WHAT GOES IN</p>
+            <ul></ul>
+            <p class="product-method"></p>
+          </div>
+          <button class="button button-dark product-dialog-done" type="button">{% include "pours/icon.html" with name="bag" %} <span>Add to order</span></button>
+        </div>
+      </div>
+    </dialog>
+  </main>
+  {{ catalog_json|json_script:"menu-data" }}
+  <script src="{% static 'pours/menu.js' %}"></script>
+</body>
+</html>

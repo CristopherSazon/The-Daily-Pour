@@ -20,11 +20,11 @@
           <span class="brand-mark-copy"><span>THE DAILY</span><strong>POUR</strong></span>
         </a>
         <nav class="desktop-nav" aria-label="Main navigation">
-          <a href="#menu">The menu</a>
+          <a href="{% url 'menu' %}">The menu</a>
           <a href="#our-story">Our story</a>
           <a href="#visit">Find us</a>
         </nav>
-        <a class="button button-dark header-cta" href="#menu">Explore the menu {% include "pours/icon.html" with name="arrow-up-right" %}</a>
+        <a class="button button-dark header-cta" href="{% url 'menu' %}">Explore the menu {% include "pours/icon.html" with name="arrow-up-right" %}</a>
       </div>
     </header>
 
@@ -63,130 +63,33 @@
       <p>GOOD COFFEE. GOOD COMPANY. GOOD TO GO.</p>
     </section>
 
-    <section class="menu-section section-wrap" id="menu" aria-labelledby="menu-title">
-      <div class="section-heading">
+    <section class="menu-section featured-menu section-wrap" id="menu" aria-labelledby="menu-title">
+      <div class="section-heading featured-menu-heading">
         <div>
           <p class="eyebrow">A FEW HOUSE FAVORITES</p>
           <h2 id="menu-title">Your next <em>usual.</em></h2>
         </div>
-        <div class="menu-heading-actions">
-          <button class="order-open-button" type="button" aria-haspopup="dialog" aria-label="Open order, 0 items, ₱0">
-            {% include "pours/icon.html" with name="bag" %}
-            <span>Your order</span>
-            <span class="order-count">0</span>
-          </button>
-          <dialog class="order-dialog" aria-labelledby="order-dialog-title">
-            <div class="order-dialog-content">
-              <button class="product-dialog-close" type="button" aria-label="Close your order">{% include "pours/icon.html" with name="x" %}</button>
-              <p class="eyebrow">MADE JUST FOR YOU</p>
-              <h2 id="order-dialog-title">Your order.</h2>
-              <div class="order-empty">
-                <p>Your bag is taking a little breather.</p>
-                <button class="button button-dark order-back" type="button">Back to the menu {% include "pours/icon.html" with name="arrow-right" %}</button>
-              </div>
-              <template id="order-line-template">
-                <div class="order-line">
-                  <div class="order-line-photo"><img alt=""></div>
-                  <div class="order-line-info">
-                    <span></span>
-                    <strong></strong>
-                    <span></span>
-                  </div>
-                  <div class="order-quantity">
-                    <button type="button" data-step="-1">{% include "pours/icon.html" with name="minus" %}</button>
-                    <span></span>
-                    <button type="button" data-step="1">{% include "pours/icon.html" with name="plus" %}</button>
-                  </div>
-                </div>
-              </template>
-              <div class="order-dialog-grid" hidden>
-                <div>
-                  <div class="order-lines"></div>
-                  <div class="order-total">
-                    <span class="order-total-label"></span>
-                    <strong></strong>
-                  </div>
-                </div>
-                <form class="order-form">
-                  {% csrf_token %}
-                  <p class="eyebrow">PICKUP DETAILS</p>
-                  <label class="order-field" for="customer-name">Your name
-                    <input id="customer-name" name="customer-name" autocomplete="name" required>
-                  </label>
-                  <label class="order-field" for="customer-phone">Phone number
-                    <input id="customer-phone" name="customer-phone" autocomplete="tel" type="tel" required>
-                  </label>
-                  <label class="order-field" for="pickup-time">Pickup time
-                    <select id="pickup-time" name="pickup-time" required>
-                      <option value="" disabled selected>Choose a pickup window</option>
-                      <option>As soon as possible</option>
-                      <option>Within 30 minutes</option>
-                      <option>Within 1 hour</option>
-                    </select>
-                  </label>
-                  <button class="button button-dark order-submit" type="submit">{% include "pours/icon.html" with name="bag" %} Place your order</button>
-                  <p class="order-note">We'll have it ready when you arrive.</p>
-                </form>
-              </div>
-            </div>
-          </dialog>
-          <a class="text-link menu-all-link" href="#categories">A menu for every mood {% include "pours/icon.html" with name="arrow-right" %}</a>
-        </div>
+        <a class="text-link menu-all-link" href="{% url 'menu' %}">Explore all 30 favorites {% include "pours/icon.html" with name="arrow-right" %}</a>
       </div>
-
-      <div class="favorites-grid">
+      <div class="featured-menu-grid">
         {% for item in featured %}
-          <article class="favorite-card">
-            <button class="favorite-card-trigger" type="button" data-item="{{ item.slug }}" aria-haspopup="dialog" aria-label="View {{ item.name }}, {{ item.price_label }}, and recipe">
-              <span class="favorite-image-wrap">
-                <img class="favorite-image" src="{% static item.static_image %}" alt="{{ item.image_alt }}" loading="lazy">
-                <span class="favorite-number">{{ item.number }}</span>
-                <span class="favorite-arrow">{% include "pours/icon.html" with name="arrow-up-right" %}</span>
-              </span>
-              <span class="favorite-meta">
-                <span>{{ item.category.name|upper }}</span>
-                <span>{{ item.price_label }}</span>
-              </span>
-              <span class="favorite-name">{{ item.name }}</span>
-              <span class="favorite-description">{{ item.description }}</span>
-              <span class="favorite-hint">VIEW DETAILS {% include "pours/icon.html" with name="arrow-up-right" %}</span>
-            </button>
-          </article>
+          <a class="featured-menu-card" href="{% url 'menu' %}">
+            <span class="featured-menu-image">
+              <img src="{% static item.static_featured %}" alt="{{ item.image_alt }}" loading="lazy">
+              <span class="featured-menu-index">{{ item.featured_position|stringformat:"02d" }}</span>
+              <span class="featured-menu-arrow">{% include "pours/icon.html" with name="arrow-up-right" %}</span>
+            </span>
+            <span class="featured-menu-meta"><span>{{ item.category.name }}</span><span>{{ item.price_label }}</span></span>
+            <span class="featured-menu-name">{{ item.name }}</span>
+            <span class="featured-menu-description">{{ item.description }}</span>
+            <span class="featured-menu-link">VIEW THE FULL MENU {% include "pours/icon.html" with name="arrow-right" %}</span>
+          </a>
         {% endfor %}
       </div>
-
-      <div class="category-row" id="categories" aria-label="Explore the menu categories">
-        <span class="category-label">FIND YOUR KIND OF GOOD</span>
-        {% for category in categories %}
-          <a href="#menu">{{ category.name }} {% include "pours/icon.html" with name="arrow-up-right" %}</a>
-        {% endfor %}
+      <div class="featured-menu-footer">
+        <span>FIVE COLLECTIONS · THIRTY LITTLE FAVORITES</span>
+        <a class="button button-dark" href="{% url 'menu' %}">Open the full menu {% include "pours/icon.html" with name="arrow-up-right" %}</a>
       </div>
-
-      <dialog class="product-dialog" aria-labelledby="product-dialog-title">
-        <div class="product-dialog-layout">
-          <div class="product-dialog-image">
-            <img class="product-dialog-photo" alt="">
-            <span class="product-dialog-category"></span>
-          </div>
-          <div class="product-dialog-content">
-            <button class="product-dialog-close" type="button" aria-label="Close product details">{% include "pours/icon.html" with name="x" %}</button>
-            <p class="eyebrow"></p>
-            <h2 id="product-dialog-title"></h2>
-            <p class="product-dialog-description"></p>
-            <p class="product-dialog-notes"></p>
-            <div class="product-dialog-price">
-              <span>YOUR EVERYDAY POUR</span>
-              <strong></strong>
-            </div>
-            <div class="product-recipe">
-              <p class="eyebrow">THE RECIPE</p>
-              <ul></ul>
-              <p class="product-method"></p>
-            </div>
-            <button class="button button-dark product-dialog-done" type="button">{% include "pours/icon.html" with name="bag" %} <span>Add to order</span></button>
-          </div>
-        </div>
-      </dialog>
     </section>
 
     <section class="story-section" id="our-story" aria-labelledby="story-title">
@@ -210,7 +113,7 @@
           <p class="eyebrow eyebrow-light">YOUR EVERYDAY, WITH A LITTLE EXTRA</p>
           <h2 id="visit-title">Make room for<br><em>a good cup.</em></h2>
           <p>Find your new favorite, revisit an old one, or simply take a moment. We'll have something lovely brewing.</p>
-          <a class="button button-cream" href="#menu">See what's pouring {% include "pours/icon.html" with name="arrow-right" %}</a>
+          <a class="button button-cream" href="{% url 'menu' %}">See what's pouring {% include "pours/icon.html" with name="arrow-right" %}</a>
         </div>
         <div class="visit-card">
           <span class="visit-card-icon">{% include "pours/icon.html" with name="pin" %}</span>
@@ -234,11 +137,11 @@
         </div>
         <div class="footer-links">
           <span>COME BACK SOON</span>
-          <a href="#menu">The menu</a>
+          <a href="{% url 'menu' %}">The menu</a>
           <a href="#our-story">Our story</a>
           <a href="#visit">Find us</a>
         </div>
-        <a class="footer-social" href="#menu">
+        <a class="footer-social" href="{% url 'menu' %}">
           <span>FIND YOUR NEXT FAVORITE</span>
           {% include "pours/icon.html" with name="arrow-up-right" %}
         </a>
@@ -250,7 +153,5 @@
       </div>
     </footer>
   </main>
-  {{ featured_json|json_script:"menu-data" }}
-  <script src="{% static 'pours/site.js' %}"></script>
 </body>
 </html>

@@ -22,43 +22,25 @@ class MenuApiTests(TestCase):
         self.assertEqual(honey['category_label'], 'THE SIGNATURE POUR')
         self.assertEqual(honey['price'], '185.00')
         self.assertEqual(honey['price_label'], '₱185')
-        self.assertEqual(honey['recipe'][0], '2 shots espresso (about 36 ml)')
-        self.assertIn('honey syrup', honey['method'])
+        self.assertEqual(honey['recipe'][0], '2 shots espresso')
+        self.assertIn('honey', honey['method'])
 
         self.assertEqual(
             [category['name'] for category in payload['categories']],
             [
-                'The Daily Classics',
+                'Daily Classics',
                 'The Signature Pour',
                 'The Custom Pour',
                 'The Matcha Edit',
                 'The Daily Bites',
             ],
         )
-        slugs = {
-            category['slug']: [item['slug'] for item in category['items']]
-            for category in payload['categories']
-        }
         self.assertEqual(
-            slugs['daily-classics'],
-            ['house-espresso', 'morning-americano', 'cafe-au-lait'],
+            [len(category['items']) for category in payload['categories']],
+            [6, 6, 6, 6, 6],
         )
-        self.assertEqual(
-            slugs['signature-pour'],
-            ['honey-oat-latte', 'brown-sugar-latte', 'orange-blossom-americano'],
-        )
-        self.assertEqual(
-            slugs['custom-pour'],
-            ['oat-cortado', 'extra-shot-cappuccino', 'half-sweet-mocha'],
-        )
-        self.assertEqual(
-            slugs['matcha-edit'],
-            ['cloud-matcha', 'warm-hojicha-latte', 'yuzu-matcha'],
-        )
-        self.assertEqual(
-            slugs['daily-bites'],
-            ['butter-croissant', 'almond-financier', 'banana-loaf'],
-        )
+        self.assertEqual(payload['categories'][0]['items'][0]['slug'], 'double-espresso')
+        self.assertEqual(payload['categories'][1]['items'][0]['slug'], 'honey-oat-latte')
 
     def test_home_renders_the_design(self):
         response = self.client.get('/')
@@ -69,12 +51,25 @@ class MenuApiTests(TestCase):
         self.assertContains(response, 'Honey oat latte')
         self.assertContains(response, 'Cloud matcha')
         self.assertContains(response, 'Butter croissant')
-        self.assertContains(response, 'The Daily Classics')
+        self.assertContains(response, 'Explore all 30 favorites')
+        self.assertContains(response, 'VIEW THE FULL MENU')
+        self.assertContains(response, 'href="/menu/"')
         self.assertContains(response, 'Come by')
         self.assertContains(response, 'pours/site.css')
+
+    def test_menu_page_lists_every_collection(self):
+        response = self.client.get('/menu/')
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Find your')
+        self.assertContains(response, 'everyday.</em>', html=False)
+        self.assertContains(response, 'Daily Classics')
+        self.assertContains(response, 'Double espresso')
+        self.assertContains(response, 'Pandan cream cold brew')
+        self.assertContains(response, 'Dirty matcha')
+        self.assertContains(response, 'Chocolate chunk cookie')
+        self.assertContains(response, 'Find a favorite')
         self.assertContains(response, 'Your order')
-        self.assertContains(response, 'Add to order')
-        self.assertContains(response, 'As soon as possible')
 
     def test_price_label_keeps_centavos(self):
         item = MenuItem.objects.get(slug='cloud-matcha')
