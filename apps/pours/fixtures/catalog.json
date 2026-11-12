@@ -1,0 +1,695 @@
+[
+{
+  "model": "pours.category",
+  "pk": 1,
+  "fields": {
+    "name": "The Daily Classics",
+    "slug": "daily-classics",
+    "position": 1
+  }
+},
+{
+  "model": "pours.category",
+  "pk": 2,
+  "fields": {
+    "name": "The Signature Pour",
+    "slug": "signature-pour",
+    "position": 2
+  }
+},
+{
+  "model": "pours.category",
+  "pk": 3,
+  "fields": {
+    "name": "The Custom Pour",
+    "slug": "custom-pour",
+    "position": 3
+  }
+},
+{
+  "model": "pours.category",
+  "pk": 4,
+  "fields": {
+    "name": "The Matcha Edit",
+    "slug": "matcha-edit",
+    "position": 4
+  }
+},
+{
+  "model": "pours.category",
+  "pk": 5,
+  "fields": {
+    "name": "The Daily Bites",
+    "slug": "daily-bites",
+    "position": 5
+  }
+},
+{
+  "model": "pours.menuitem",
+  "pk": 1,
+  "fields": {
+    "category": 2,
+    "name": "Honey oat latte",
+    "slug": "honey-oat-latte",
+    "description": "A little floral honey, a silky oat pour, and our house espresso.",
+    "notes": "Smooth and mellow, with a soft honey finish. Available iced or warm.",
+    "price": "185.00",
+    "image": "/daily-pour-signature.png",
+    "image_alt": "Iced honey oat latte on a warm wooden café table",
+    "method": "Stir the honey syrup into freshly pulled espresso. Pour over ice, add oat milk, and give it a gentle swirl.",
+    "is_featured": true,
+    "featured_position": 1,
+    "position": 1
+  }
+},
+{
+  "model": "pours.menuitem",
+  "pk": 2,
+  "fields": {
+    "category": 4,
+    "name": "Cloud matcha",
+    "slug": "cloud-matcha",
+    "description": "Bright ceremonial matcha, softly whisked and finished with oat milk.",
+    "notes": "Fresh, gently grassy, and creamy. Ask for it warm instead of iced.",
+    "price": "195.00",
+    "image": "/daily-pour-matcha.png",
+    "image_alt": "Layered iced matcha latte in a clear glass",
+    "method": "Sift and whisk matcha with warm water until smooth and lightly frothy. Pour over ice and oat milk.",
+    "is_featured": true,
+    "featured_position": 2,
+    "position": 1
+  }
+},
+{
+  "model": "pours.menuitem",
+  "pk": 3,
+  "fields": {
+    "category": 5,
+    "name": "Butter croissant",
+    "slug": "butter-croissant",
+    "description": "Golden, flaky, and even better with your first sip of the day.",
+    "notes": "Crisp at the edges, tender inside. Contains wheat, milk, and egg.",
+    "price": "145.00",
+    "image": "/daily-pour-pastry.png",
+    "image_alt": "Golden butter croissant on a small ceramic plate",
+    "method": "Layer butter through the dough, fold and chill between turns, proof until airy, then bake until deeply golden.",
+    "is_featured": true,
+    "featured_position": 3,
+    "position": 1
+  }
+},
+{
+  "model": "pours.menuitem",
+  "pk": 4,
+  "fields": {
+    "category": 1,
+    "name": "House espresso",
+    "slug": "house-espresso",
+    "description": "A short, bright shot of our house espresso.",
+    "notes": "Served in a small cup. Ask for a second shot if you want it longer.",
+    "price": "110.00",
+    "image": "",
+    "image_alt": "",
+    "method": "Pull a double shot into a warm cup and serve straight away.",
+    "is_featured": false,
+    "featured_position": null,
+    "position": 1
+  }
+},
+{
+  "model": "pours.menuitem",
+  "pk": 5,
+  "fields": {
+    "category": 1,
+    "name": "Morning americano",
+    "slug": "morning-americano",
+    "description": "Espresso lengthened with hot water, clean and easy to sip.",
+    "notes": "Light-bodied and quietly bitter. Available iced.",
+    "price": "140.00",
+    "image": "",
+    "image_alt": "",
+    "method": "Pull espresso into a cup, then top with hot water so the crema stays on top.",
+    "is_featured": false,
+    "featured_position": null,
+    "position": 2
+  }
+},
+{
+  "model": "pours.menuitem",
+  "pk": 6,
+  "fields": {
+    "category": 1,
+    "name": "Café au lait",
+    "slug": "cafe-au-lait",
+    "description": "Brewed coffee and warm milk in equal parts.",
+    "notes": "Softer than a latte, with a round, milky finish.",
+    "price": "155.00",
+    "image": "",
+    "image_alt": "",
+    "method": "Warm the milk until steaming, then pour it with the coffee at the same time.",
+    "is_featured": false,
+    "featured_position": null,
+    "position": 3
+  }
+},
+{
+  "model": "pours.menuitem",
+  "pk": 7,
+  "fields": {
+    "category": 2,
+    "name": "Brown sugar latte",
+    "slug": "brown-sugar-latte",
+    "description": "Espresso, brown sugar syrup, and a silky milk pour.",
+    "notes": "Toasty and lightly caramel. Ask for oat milk if you like.",
+    "price": "190.00",
+    "image": "",
+    "image_alt": "",
+    "method": "Stir the brown sugar syrup into the espresso, then pour in steamed milk.",
+    "is_featured": false,
+    "featured_position": null,
+    "position": 2
+  }
+},
+{
+  "model": "pours.menuitem",
+  "pk": 8,
+  "fields": {
+    "category": 2,
+    "name": "Orange blossom americano",
+    "slug": "orange-blossom-americano",
+    "description": "Americano with a few drops of orange blossom water.",
+    "notes": "Floral, not sweet. Best warm.",
+    "price": "165.00",
+    "image": "",
+    "image_alt": "",
+    "method": "Lengthen the espresso with hot water, then add the orange blossom water and stir once.",
+    "is_featured": false,
+    "featured_position": null,
+    "position": 3
+  }
+},
+{
+  "model": "pours.menuitem",
+  "pk": 9,
+  "fields": {
+    "category": 3,
+    "name": "Oat cortado",
+    "slug": "oat-cortado",
+    "description": "Equal parts espresso and steamed oat milk.",
+    "notes": "Small, strong, and creamy. The usual custom when you want less milk.",
+    "price": "160.00",
+    "image": "",
+    "image_alt": "",
+    "method": "Pull the espresso and top it with an equal amount of textured oat milk.",
+    "is_featured": false,
+    "featured_position": null,
+    "position": 1
+  }
+},
+{
+  "model": "pours.menuitem",
+  "pk": 10,
+  "fields": {
+    "category": 3,
+    "name": "Extra-shot cappuccino",
+    "slug": "extra-shot-cappuccino",
+    "description": "A cappuccino with one more shot than the usual.",
+    "notes": "Foamy on top, stronger underneath. Ask if you want it drier.",
+    "price": "175.00",
+    "image": "",
+    "image_alt": "",
+    "method": "Pull three shots, then pour steamed milk and a cap of foam.",
+    "is_featured": false,
+    "featured_position": null,
+    "position": 2
+  }
+},
+{
+  "model": "pours.menuitem",
+  "pk": 11,
+  "fields": {
+    "category": 3,
+    "name": "Half-sweet mocha",
+    "slug": "half-sweet-mocha",
+    "description": "Espresso and cocoa with half the usual cocoa syrup.",
+    "notes": "Chocolate first, sweetness second. Milk or oat, warm or iced.",
+    "price": "185.00",
+    "image": "",
+    "image_alt": "",
+    "method": "Stir the cocoa syrup into the espresso, then add steamed milk.",
+    "is_featured": false,
+    "featured_position": null,
+    "position": 3
+  }
+},
+{
+  "model": "pours.menuitem",
+  "pk": 12,
+  "fields": {
+    "category": 4,
+    "name": "Warm hojicha latte",
+    "slug": "warm-hojicha-latte",
+    "description": "Roasted hojicha whisked warm and finished with oat milk.",
+    "notes": "Toasty, low in bitterness, and gentle in the afternoon.",
+    "price": "180.00",
+    "image": "",
+    "image_alt": "",
+    "method": "Whisk the hojicha with a little hot water, then top with steamed oat milk.",
+    "is_featured": false,
+    "featured_position": null,
+    "position": 2
+  }
+},
+{
+  "model": "pours.menuitem",
+  "pk": 13,
+  "fields": {
+    "category": 4,
+    "name": "Yuzu matcha",
+    "slug": "yuzu-matcha",
+    "description": "Iced matcha with a bright splash of yuzu.",
+    "notes": "Tart, green, and cold. Not sweetened unless you ask.",
+    "price": "205.00",
+    "image": "",
+    "image_alt": "",
+    "method": "Whisk the matcha, shake it with yuzu and ice, and strain over a fresh glass of ice.",
+    "is_featured": false,
+    "featured_position": null,
+    "position": 3
+  }
+},
+{
+  "model": "pours.menuitem",
+  "pk": 14,
+  "fields": {
+    "category": 5,
+    "name": "Almond financier",
+    "slug": "almond-financier",
+    "description": "A small browned-butter cake with ground almonds.",
+    "notes": "Nutty and crisp at the edges. Contains wheat, almond, milk, and egg.",
+    "price": "125.00",
+    "image": "",
+    "image_alt": "",
+    "method": "Brown the butter, fold it into the almond batter, and bake in a small mold until the top is deep gold.",
+    "is_featured": false,
+    "featured_position": null,
+    "position": 2
+  }
+},
+{
+  "model": "pours.menuitem",
+  "pk": 15,
+  "fields": {
+    "category": 5,
+    "name": "Banana loaf",
+    "slug": "banana-loaf",
+    "description": "A thick slice of ripe banana loaf.",
+    "notes": "Soft, lightly sweet, and good with any hot drink. Contains wheat, milk, and egg.",
+    "price": "95.00",
+    "image": "",
+    "image_alt": "",
+    "method": "Mash ripe bananas into the batter, bake the loaf until set, and slice once cool.",
+    "is_featured": false,
+    "featured_position": null,
+    "position": 3
+  }
+},
+{
+  "model": "pours.recipeline",
+  "pk": 1,
+  "fields": {
+    "item": 1,
+    "text": "2 shots espresso (about 36 ml)",
+    "position": 1
+  }
+},
+{
+  "model": "pours.recipeline",
+  "pk": 2,
+  "fields": {
+    "item": 1,
+    "text": "180 ml oat milk",
+    "position": 2
+  }
+},
+{
+  "model": "pours.recipeline",
+  "pk": 3,
+  "fields": {
+    "item": 1,
+    "text": "10 ml honey syrup",
+    "position": 3
+  }
+},
+{
+  "model": "pours.recipeline",
+  "pk": 4,
+  "fields": {
+    "item": 1,
+    "text": "Ice, to fill",
+    "position": 4
+  }
+},
+{
+  "model": "pours.recipeline",
+  "pk": 5,
+  "fields": {
+    "item": 2,
+    "text": "2 g matcha powder",
+    "position": 1
+  }
+},
+{
+  "model": "pours.recipeline",
+  "pk": 6,
+  "fields": {
+    "item": 2,
+    "text": "30 ml warm water (about 80°C)",
+    "position": 2
+  }
+},
+{
+  "model": "pours.recipeline",
+  "pk": 7,
+  "fields": {
+    "item": 2,
+    "text": "180 ml oat milk",
+    "position": 3
+  }
+},
+{
+  "model": "pours.recipeline",
+  "pk": 8,
+  "fields": {
+    "item": 2,
+    "text": "Ice, to fill",
+    "position": 4
+  }
+},
+{
+  "model": "pours.recipeline",
+  "pk": 9,
+  "fields": {
+    "item": 3,
+    "text": "Wheat flour and cultured butter",
+    "position": 1
+  }
+},
+{
+  "model": "pours.recipeline",
+  "pk": 10,
+  "fields": {
+    "item": 3,
+    "text": "Milk, yeast, sugar, and sea salt",
+    "position": 2
+  }
+},
+{
+  "model": "pours.recipeline",
+  "pk": 11,
+  "fields": {
+    "item": 3,
+    "text": "Egg wash for a glossy finish",
+    "position": 3
+  }
+},
+{
+  "model": "pours.recipeline",
+  "pk": 12,
+  "fields": {
+    "item": 4,
+    "text": "2 shots espresso (about 36 ml)",
+    "position": 1
+  }
+},
+{
+  "model": "pours.recipeline",
+  "pk": 13,
+  "fields": {
+    "item": 5,
+    "text": "2 shots espresso (about 36 ml)",
+    "position": 1
+  }
+},
+{
+  "model": "pours.recipeline",
+  "pk": 14,
+  "fields": {
+    "item": 5,
+    "text": "150 ml hot water",
+    "position": 2
+  }
+},
+{
+  "model": "pours.recipeline",
+  "pk": 15,
+  "fields": {
+    "item": 6,
+    "text": "120 ml brewed coffee",
+    "position": 1
+  }
+},
+{
+  "model": "pours.recipeline",
+  "pk": 16,
+  "fields": {
+    "item": 6,
+    "text": "120 ml steamed milk",
+    "position": 2
+  }
+},
+{
+  "model": "pours.recipeline",
+  "pk": 17,
+  "fields": {
+    "item": 7,
+    "text": "2 shots espresso (about 36 ml)",
+    "position": 1
+  }
+},
+{
+  "model": "pours.recipeline",
+  "pk": 18,
+  "fields": {
+    "item": 7,
+    "text": "15 ml brown sugar syrup",
+    "position": 2
+  }
+},
+{
+  "model": "pours.recipeline",
+  "pk": 19,
+  "fields": {
+    "item": 7,
+    "text": "180 ml milk",
+    "position": 3
+  }
+},
+{
+  "model": "pours.recipeline",
+  "pk": 20,
+  "fields": {
+    "item": 8,
+    "text": "2 shots espresso (about 36 ml)",
+    "position": 1
+  }
+},
+{
+  "model": "pours.recipeline",
+  "pk": 21,
+  "fields": {
+    "item": 8,
+    "text": "150 ml hot water",
+    "position": 2
+  }
+},
+{
+  "model": "pours.recipeline",
+  "pk": 22,
+  "fields": {
+    "item": 8,
+    "text": "2 drops orange blossom water",
+    "position": 3
+  }
+},
+{
+  "model": "pours.recipeline",
+  "pk": 23,
+  "fields": {
+    "item": 9,
+    "text": "2 shots espresso (about 36 ml)",
+    "position": 1
+  }
+},
+{
+  "model": "pours.recipeline",
+  "pk": 24,
+  "fields": {
+    "item": 9,
+    "text": "36 ml steamed oat milk",
+    "position": 2
+  }
+},
+{
+  "model": "pours.recipeline",
+  "pk": 25,
+  "fields": {
+    "item": 10,
+    "text": "3 shots espresso (about 54 ml)",
+    "position": 1
+  }
+},
+{
+  "model": "pours.recipeline",
+  "pk": 26,
+  "fields": {
+    "item": 10,
+    "text": "120 ml steamed milk",
+    "position": 2
+  }
+},
+{
+  "model": "pours.recipeline",
+  "pk": 27,
+  "fields": {
+    "item": 10,
+    "text": "A cap of milk foam",
+    "position": 3
+  }
+},
+{
+  "model": "pours.recipeline",
+  "pk": 28,
+  "fields": {
+    "item": 11,
+    "text": "2 shots espresso (about 36 ml)",
+    "position": 1
+  }
+},
+{
+  "model": "pours.recipeline",
+  "pk": 29,
+  "fields": {
+    "item": 11,
+    "text": "10 ml cocoa syrup",
+    "position": 2
+  }
+},
+{
+  "model": "pours.recipeline",
+  "pk": 30,
+  "fields": {
+    "item": 11,
+    "text": "180 ml milk",
+    "position": 3
+  }
+},
+{
+  "model": "pours.recipeline",
+  "pk": 31,
+  "fields": {
+    "item": 12,
+    "text": "3 g hojicha powder",
+    "position": 1
+  }
+},
+{
+  "model": "pours.recipeline",
+  "pk": 32,
+  "fields": {
+    "item": 12,
+    "text": "40 ml hot water",
+    "position": 2
+  }
+},
+{
+  "model": "pours.recipeline",
+  "pk": 33,
+  "fields": {
+    "item": 12,
+    "text": "180 ml oat milk",
+    "position": 3
+  }
+},
+{
+  "model": "pours.recipeline",
+  "pk": 34,
+  "fields": {
+    "item": 13,
+    "text": "2 g matcha powder",
+    "position": 1
+  }
+},
+{
+  "model": "pours.recipeline",
+  "pk": 35,
+  "fields": {
+    "item": 13,
+    "text": "30 ml warm water (about 80°C)",
+    "position": 2
+  }
+},
+{
+  "model": "pours.recipeline",
+  "pk": 36,
+  "fields": {
+    "item": 13,
+    "text": "20 ml yuzu juice",
+    "position": 3
+  }
+},
+{
+  "model": "pours.recipeline",
+  "pk": 37,
+  "fields": {
+    "item": 13,
+    "text": "Ice, to fill",
+    "position": 4
+  }
+},
+{
+  "model": "pours.recipeline",
+  "pk": 38,
+  "fields": {
+    "item": 14,
+    "text": "Ground almonds and wheat flour",
+    "position": 1
+  }
+},
+{
+  "model": "pours.recipeline",
+  "pk": 39,
+  "fields": {
+    "item": 14,
+    "text": "Browned butter, egg white, and sugar",
+    "position": 2
+  }
+},
+{
+  "model": "pours.recipeline",
+  "pk": 40,
+  "fields": {
+    "item": 14,
+    "text": "A pinch of sea salt",
+    "position": 3
+  }
+},
+{
+  "model": "pours.recipeline",
+  "pk": 41,
+  "fields": {
+    "item": 15,
+    "text": "Ripe banana, wheat flour, and butter",
+    "position": 1
+  }
+},
+{
+  "model": "pours.recipeline",
+  "pk": 42,
+  "fields": {
+    "item": 15,
+    "text": "Brown sugar, egg, and baking soda",
+    "position": 2
+  }
+}
+]

@@ -35,10 +35,30 @@ class MenuApiTests(TestCase):
                 'The Daily Bites',
             ],
         )
-        classics = payload['categories'][0]
-        self.assertEqual(classics['items'], [])
-        signature = payload['categories'][1]
-        self.assertEqual([item['slug'] for item in signature['items']], ['honey-oat-latte'])
+        slugs = {
+            category['slug']: [item['slug'] for item in category['items']]
+            for category in payload['categories']
+        }
+        self.assertEqual(
+            slugs['daily-classics'],
+            ['house-espresso', 'morning-americano', 'cafe-au-lait'],
+        )
+        self.assertEqual(
+            slugs['signature-pour'],
+            ['honey-oat-latte', 'brown-sugar-latte', 'orange-blossom-americano'],
+        )
+        self.assertEqual(
+            slugs['custom-pour'],
+            ['oat-cortado', 'extra-shot-cappuccino', 'half-sweet-mocha'],
+        )
+        self.assertEqual(
+            slugs['matcha-edit'],
+            ['cloud-matcha', 'warm-hojicha-latte', 'yuzu-matcha'],
+        )
+        self.assertEqual(
+            slugs['daily-bites'],
+            ['butter-croissant', 'almond-financier', 'banana-loaf'],
+        )
 
     def test_home_renders_the_design(self):
         response = self.client.get('/')
