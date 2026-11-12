@@ -1,0 +1,194 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f0e7">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="A familiar ritual, made a little more special. Thoughtful coffee, something lovely on the side, and a moment that's all yours.">
+  <title>The Daily Pour — Coffee for Everyday Moments</title>
+  <link rel="preload" as="image" href="{% static 'pours/daily-pour-hero.png' %}">
+  <link rel="stylesheet" href="{% static 'pours/site.css' %}">
+</head>
+<body>
+  <main class="coffee-site">
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand-mark" href="#top" aria-label="The Daily Pour home">
+          <span class="brand-mark-icon" aria-hidden="true">{% include "pours/icon.html" with name="coffee" %}</span>
+          <span class="brand-mark-copy"><span>THE DAILY</span><strong>POUR</strong></span>
+        </a>
+        <nav class="desktop-nav" aria-label="Main navigation">
+          <a href="#menu">The menu</a>
+          <a href="#our-story">Our story</a>
+          <a href="#visit">Find us</a>
+        </nav>
+        <a class="button button-dark header-cta" href="#menu">Explore the menu {% include "pours/icon.html" with name="arrow-up-right" %}</a>
+      </div>
+    </header>
+
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="eyebrow-dot"></span> A GOOD CUP, EVERY DAY</p>
+        <h1 id="hero-title">Coffee for<br>everyday <em>moments.</em></h1>
+        <p class="hero-description">A familiar ritual, made a little more special. Thoughtful coffee, something lovely on the side, and a moment that's all yours.</p>
+        <div class="hero-actions">
+          <a class="button button-dark" href="#menu">Find your pour {% include "pours/icon.html" with name="arrow-right" %}</a>
+          <a class="text-link" href="#our-story">A little about us {% include "pours/icon.html" with name="arrow-down" %}</a>
+        </div>
+        <div class="hero-note"><span class="note-rule"></span> GOOD THINGS, BREWING DAILY</div>
+      </div>
+      <div class="hero-visual">
+        <img class="hero-image" src="{% static 'pours/daily-pour-hero.png' %}" alt="A hand holding a latte by the café window in the morning light">
+        <div class="hero-stamp" aria-label="Made for your everyday">
+          <span>MADE FOR</span>
+          <strong>your<br>everyday</strong>
+          <span>· THE DAILY POUR ·</span>
+        </div>
+        <div class="image-caption">
+          <span>01 / A SLOWER KIND OF MORNING</span>
+          <span>FRESHLY MADE, ALWAYS</span>
+        </div>
+      </div>
+      <a class="scroll-cue" href="#menu" aria-label="Scroll to the menu">
+        <span>TAKE A LOOK AROUND</span>
+        {% include "pours/icon.html" with name="arrow-down" %}
+      </a>
+    </section>
+
+    <section class="intro-band" aria-label="Our philosophy">
+      <p>EVERY DAY DESERVES A GOOD CUP.</p>
+      <span class="intro-ornament" aria-hidden="true">✳</span>
+      <p>GOOD COFFEE. GOOD COMPANY. GOOD TO GO.</p>
+    </section>
+
+    <section class="menu-section section-wrap" id="menu" aria-labelledby="menu-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">A FEW HOUSE FAVORITES</p>
+          <h2 id="menu-title">Your next <em>usual.</em></h2>
+        </div>
+        <a class="text-link menu-all-link" href="#categories">A menu for every mood {% include "pours/icon.html" with name="arrow-right" %}</a>
+      </div>
+
+      <div class="favorites-grid">
+        {% for item in featured %}
+          <article class="favorite-card">
+            <button class="favorite-card-trigger" type="button" data-item="{{ item.slug }}" aria-haspopup="dialog" aria-label="View {{ item.name }}, {{ item.price_label }}, and recipe">
+              <span class="favorite-image-wrap">
+                <img class="favorite-image" src="{% static item.static_image %}" alt="{{ item.image_alt }}" loading="lazy">
+                <span class="favorite-number">{{ item.number }}</span>
+                <span class="favorite-arrow">{% include "pours/icon.html" with name="arrow-up-right" %}</span>
+              </span>
+              <span class="favorite-meta">
+                <span>{{ item.category.name|upper }}</span>
+                <span>{{ item.price_label }}</span>
+              </span>
+              <span class="favorite-name">{{ item.name }}</span>
+              <span class="favorite-description">{{ item.description }}</span>
+              <span class="favorite-hint">VIEW DETAILS {% include "pours/icon.html" with name="arrow-up-right" %}</span>
+            </button>
+          </article>
+        {% endfor %}
+      </div>
+
+      <div class="category-row" id="categories" aria-label="Explore the menu categories">
+        <span class="category-label">FIND YOUR KIND OF GOOD</span>
+        {% for category in categories %}
+          <a href="#menu">{{ category.name }} {% include "pours/icon.html" with name="arrow-up-right" %}</a>
+        {% endfor %}
+      </div>
+
+      <dialog class="product-dialog" aria-labelledby="product-dialog-title">
+        <div class="product-dialog-layout">
+          <div class="product-dialog-image">
+            <img class="product-dialog-photo" alt="">
+            <span class="product-dialog-category"></span>
+          </div>
+          <div class="product-dialog-content">
+            <button class="product-dialog-close" type="button" aria-label="Close product details">{% include "pours/icon.html" with name="x" %}</button>
+            <p class="eyebrow"></p>
+            <h2 id="product-dialog-title"></h2>
+            <p class="product-dialog-description"></p>
+            <p class="product-dialog-notes"></p>
+            <div class="product-dialog-price">
+              <span>YOUR EVERYDAY POUR</span>
+              <strong></strong>
+            </div>
+            <div class="product-recipe">
+              <p class="eyebrow">THE RECIPE</p>
+              <ul></ul>
+              <p class="product-method"></p>
+            </div>
+            <button class="button button-dark product-dialog-done" type="button">Sounds lovely {% include "pours/icon.html" with name="arrow-right" %}</button>
+          </div>
+        </div>
+      </dialog>
+    </section>
+
+    <section class="story-section" id="our-story" aria-labelledby="story-title">
+      <div class="story-image" role="img" aria-label="Warm morning light falling across a cozy café table">
+        <img class="story-photo" src="{% static 'pours/daily-pour-hero.png' %}" alt="" loading="lazy">
+        <span class="story-image-label">A SMALL PAUSE IN A BIG DAY</span>
+      </div>
+      <div class="story-copy">
+        <p class="eyebrow">A PLACE IN YOUR EVERYDAY</p>
+        <h2 id="story-title">Not just coffee.<br>A little <em>good feeling.</em></h2>
+        <p>We believe the everyday deserves a little care. So we make coffee with good ingredients, a light touch, and room for you to make it your own.</p>
+        <p>Whether it's your first stop or your favorite pause, there's always something here to make today feel like a good one.</p>
+        <a class="text-link" href="#visit">Come as you are {% include "pours/icon.html" with name="arrow-right" %}</a>
+        <div class="story-signoff">Make today a good one.<span>— THE DAILY POUR</span></div>
+      </div>
+    </section>
+
+    <section class="visit-section" id="visit" aria-labelledby="visit-title">
+      <div class="visit-inner">
+        <div class="visit-copy">
+          <p class="eyebrow eyebrow-light">YOUR EVERYDAY, WITH A LITTLE EXTRA</p>
+          <h2 id="visit-title">Make room for<br><em>a good cup.</em></h2>
+          <p>Find your new favorite, revisit an old one, or simply take a moment. We'll have something lovely brewing.</p>
+          <a class="button button-cream" href="#menu">See what's pouring {% include "pours/icon.html" with name="arrow-right" %}</a>
+        </div>
+        <div class="visit-card">
+          <span class="visit-card-icon">{% include "pours/icon.html" with name="pin" %}</span>
+          <p class="eyebrow">A PLACE TO CALL YOURS</p>
+          <h3>Come by<br>for your usual.</h3>
+          <p>We're here for slow mornings, quick pick-me-ups, and everything in between.</p>
+          <a class="text-link text-link-light" href="#top">The Daily Pour {% include "pours/icon.html" with name="arrow-up-right" %}</a>
+          <span class="visit-card-mark" aria-hidden="true">D·P</span>
+        </div>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <div class="footer-main">
+        <div class="footer-brand">
+          <a class="brand-mark brand-mark-light" href="#top" aria-label="The Daily Pour home">
+            <span class="brand-mark-icon" aria-hidden="true">{% include "pours/icon.html" with name="coffee" %}</span>
+            <span class="brand-mark-copy"><span>THE DAILY</span><strong>POUR</strong></span>
+          </a>
+          <p>Coffee for everyday moments.</p>
+        </div>
+        <div class="footer-links">
+          <span>COME BACK SOON</span>
+          <a href="#menu">The menu</a>
+          <a href="#our-story">Our story</a>
+          <a href="#visit">Find us</a>
+        </div>
+        <a class="footer-social" href="#menu">
+          <span>FIND YOUR NEXT FAVORITE</span>
+          {% include "pours/icon.html" with name="arrow-up-right" %}
+        </a>
+      </div>
+      <div class="footer-bottom">
+        <span>© {% now "Y" %} THE DAILY POUR</span>
+        <span>MADE WITH A LITTLE MORE HEART.</span>
+        <a href="#top">BACK TO TOP ↑</a>
+      </div>
+    </footer>
+  </main>
+  {{ featured_json|json_script:"menu-data" }}
+  <script src="{% static 'pours/site.js' %}"></script>
+</body>
+</html>
