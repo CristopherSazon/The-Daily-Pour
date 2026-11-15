@@ -1,36 +1,55 @@
 (function () {
-  const dialog = document.querySelector(".barista-dialog");
+  const panel = document.querySelector(".barista-panel");
   const launcher = document.querySelector(".barista-launcher");
   const log = document.querySelector(".barista-log");
-  const form = document.querySelector(".barista-form");
-  if (!dialog || !launcher || !log || !form || !dialog.show) return;
+  const form = document.querySelector(".barista-compose");
+  const welcome = document.querySelector(".barista-welcome");
+  const status = document.querySelector(".barista-status");
+  const restart = document.querySelector(".barista-restart");
+  if (!panel || !launcher || !log || !form || !welcome || !status) return;
 
   const input = form.querySelector('input[type="text"]');
+  const sendButton = form.querySelector(".barista-send");
   const pendingKey = "daily-pour-pending";
+  const starters = ["Something not too sweet", "An iced pick-me-up", "Coffee and a little treat"];
   let transcript = [];
-  let ready = false;
+  let knownGuest = false;
   let busy = false;
+  let request = null;
+  let lastAttempt = null;
 
   function csrfToken() {
     const field = form.querySelector("[name=csrfmiddlewaretoken]");
     return field ? field.value : "";
   }
 
-  function sprite(item) {
-    if (!item.image) return null;
-    const frame = document.createElement("div");
-    frame.className = "menu-product-sprite";
-    frame.setAttribute("role", "img");
-    frame.setAttribute("aria-label", item.image_alt || "");
-    const image = document.createElement("img");
-    image.className = "menu-product-sprite-image";
-    image.alt = "";
-    image.src = item.image;
-    const index = Number(item.image_index) || 0;
-    image.style.left = -100 * (index % 3) + "%";
-    image.style.top = -100 * Math.floor(index / 3) + "%";
-    frame.append(image);
-    return frame;
+  function setOpen(open) {
+    panel.hidden = !open;
+    launcher.setAttribute("aria-expanded", open ? "true" : "false");
+    if (open) input.focus();
+  }
+
+  function updateSend() {
+    sendButton.disabled = busy || !input.value.trim();
+    input.disabled = busy;
+    welcome.querySelectorAll("button").forEach((button) => {
+      button.disabled = busy;
+    });
+  }
+
+  function clearStatus() {
+    status.replaceChildren();
+  }
+
+  function showStatus(text, actionLabel, onAction) {
+    clearStatus();
+    const note = document.createElement("span");
+    note.textContent = text;
+    const action = document.createElement("button");
+    action.type = "button";
+    action.textContent = actionLabel;
+    action.addEventListener("click", onAction);
+    status.append(note, action);
   }
 
   function remember(line) {
@@ -49,53 +68,54 @@
     if (goToMenu) window.location.href = "/menu/";
   }
 
-  function suggestionCard(suggestion) {
-    const card = document.createElement("article");
-    card.className = "barista-card";
-    const image = sprite(suggestion);
-    if (image) {
-      const frame = document.createElement("span");
-      frame.className = "barista-card-image";
-      frame.append(image);
-      card.append(frame);
-    }
-    const copy = document.createElement("div");
-    const name = document.createElement("strong");
-    name.textContent = suggestion.name;
-    const reason = document.createElement("p");
-    reason.textContent = suggestion.reason || "";
-    const add = document.createElement("button");
-    add.type = "button";
-    add.className = "catalog-card-add";
-    add.textContent = "Add · " + (suggestion.unit_price_label || suggestion.price_label || "");
-    add.addEventListener("click", () => addSuggestion(suggestion.slug, suggestion.selected_modifiers || [], 1, true));
-    copy.append(name, reason, add);
-    card.append(copy);
-    return card;
+  function messageArticle(role, text) {
+    const article = document.createElement("article");
+    article.className = "barista-message barista-message-" + role;
+    const sender = document.createElement("span");
+    sender.className = "barista-message-sender";
+    sender.textContent = role === "user" ? "YOU" : "THE BARISTA";
+    const body = document.createElement("p");
+    body.textContent = text;
+    article.append(sender, body);
+    return article;
   }
 
-  function appendExchange(userText, payload) {
-    if (userText) {
-      const mine = document.createElement("p");
-      mine.className = "barista-user";
-      mine.textContent = userText;
-      log.append(mine);
+  function offerButtons(choices) {
+    if (!choices.length) return;
+    const group = document.createElement("div");
+    group.className = "barista-suggestions";
+    choices.forEach((choice) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.textContent = choice.label;
+      button.addEventListener("click", choice.onClick);
+      group.append(button);
+    });
+    log.append(group);
+  }
+
+  function revealConversation() {
+    welcome.hidden = true;
+    if (restart) restart.hidden = false;
+  }
+
+  function appendReply(message, payload) {
+    if (message) {
+      revealConversation();
+      log.append(messageArticle("user", message));
     }
-    const reply = document.createElement("div");
-    reply.className = "barista-reply";
-    const say = document.createElement("p");
-    say.textContent = payload.say || "";
-    reply.append(say);
-    (payload.items || []).forEach((suggestion) => reply.append(suggestionCard(suggestion)));
+    if (payload.say) log.append(messageArticle("assistant", payload.say));
+    const choices = (payload.items || []).map((suggestion) => ({
+      label: "Add " + suggestion.name + (suggestion.unit_price_label || suggestion.price_label ? " · " + (suggestion.unit_price_label || suggestion.price_label) : ""),
+      onClick: () => addSuggestion(suggestion.slug, suggestion.selected_modifiers || [], 1, true),
+    }));
     if (payload.recall && payload.recall.phone) {
-      const confirm = document.createElement("button");
-      confirm.type = "button";
-      confirm.className = "barista-recall";
-      confirm.textContent = payload.recall.prompt;
-      confirm.addEventListener("click", () => send("", payload.recall.phone));
-      reply.append(confirm);
+      choices.push({
+        label: payload.recall.prompt,
+        onClick: () => send("", payload.recall.phone, false),
+      });
     }
-    log.append(reply);
+    offerButtons(choices);
     log.scrollTop = log.scrollHeight;
   }
 
@@ -108,24 +128,24 @@
     }
   }
 
-  async function loadBarista() {
+  async function loadGuest() {
+    if (knownGuest) return;
+    knownGuest = true;
     const response = await fetch("/barista/");
     const payload = await response.json().catch(() => ({}));
-    if (!response.ok) {
-      if (!log.childElementCount) appendExchange("", { say: payload.error || "The barista is away from the bar right now." });
-      return;
-    }
-    applyGuest(payload);
-    if (!log.childElementCount) appendExchange("", payload);
-    ready = true;
+    if (response.ok) applyGuest(payload);
   }
 
-  async function send(message, confirmPhone) {
+  async function send(message, confirmPhone, echo) {
     if (busy) return;
     const history = transcript.slice(-8);
     if (message) transcript.push({ role: "user", content: message });
+    if (echo !== false && message) appendReply(message, {});
+    lastAttempt = { message: message, confirmPhone: confirmPhone || "" };
     busy = true;
-    form.querySelector("button").disabled = true;
+    updateSend();
+    request = new AbortController();
+    showStatus("Finding a good fit…", "Stop", () => request.abort());
     try {
       const cart = window.DailyPour && DailyPour.lines ? DailyPour.lines() : [];
       const response = await fetch("/barista/", {
@@ -140,48 +160,73 @@
           cart: cart,
           confirm_phone: confirmPhone || "",
         }),
+        signal: request.signal,
       });
       const payload = await response.json().catch(() => ({}));
       if (!response.ok) {
-        appendExchange(message, { say: payload.error || "The barista is away from the bar right now." });
+        showStatus(payload.error || "I couldn't connect just now. Please try again.", "Try again", () => send(lastAttempt.message, lastAttempt.confirmPhone, false));
         return;
       }
+      clearStatus();
       if (payload.say) transcript.push({ role: "assistant", content: payload.say });
       (payload.cart || []).forEach((line) => addSuggestion(line.slug, line.modifiers || [], line.quantity || 1, false));
       applyGuest(payload);
-      appendExchange(message, payload);
+      appendReply("", payload);
+    } catch (error) {
+      if (error.name === "AbortError") {
+        clearStatus();
+        return;
+      }
+      showStatus("I couldn't connect just now. Please try again.", "Try again", () => send(lastAttempt.message, lastAttempt.confirmPhone, false));
     } finally {
       busy = false;
-      form.querySelector("button").disabled = false;
+      request = null;
+      updateSend();
       input.focus();
     }
   }
 
-  async function openPanel() {
-    if (dialog.open) {
-      dialog.close();
-      return;
-    }
-    dialog.show();
-    launcher.setAttribute("aria-expanded", "true");
-    if (!ready) await loadBarista();
+  function resetChat() {
+    if (request) request.abort();
+    transcript = [];
+    lastAttempt = null;
+    log.querySelectorAll(".barista-message, :scope > .barista-suggestions").forEach((node) => node.remove());
+    welcome.hidden = false;
+    if (restart) restart.hidden = true;
+    clearStatus();
+    input.value = "";
+    updateSend();
     input.focus();
   }
 
-  launcher.addEventListener("click", openPanel);
-  dialog.querySelector(".product-dialog-close").addEventListener("click", () => dialog.close());
-  dialog.addEventListener("close", () => launcher.setAttribute("aria-expanded", "false"));
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && dialog.open) dialog.close();
+  launcher.addEventListener("click", () => {
+    const open = panel.hidden;
+    setOpen(open);
+    if (open) loadGuest();
   });
-  document.addEventListener("daily-pour-ordered", () => {
-    ready = false;
+  panel.querySelector(".barista-close").addEventListener("click", () => setOpen(false));
+  if (restart) restart.addEventListener("click", resetChat);
+  panel.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      event.preventDefault();
+      setOpen(false);
+    }
   });
+  welcome.querySelectorAll("button").forEach((button) => {
+    button.addEventListener("click", () => {
+      if (!starters.includes(button.textContent)) return;
+      input.value = "";
+      updateSend();
+      send(button.textContent, "", true);
+    });
+  });
+  input.addEventListener("input", updateSend);
   form.addEventListener("submit", (event) => {
     event.preventDefault();
     const message = input.value.trim();
-    if (!message) return;
+    if (!message || busy) return;
     input.value = "";
-    send(message, "");
+    updateSend();
+    send(message, "", true);
   });
 })();

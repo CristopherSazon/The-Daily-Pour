@@ -1,21 +1,39 @@
 {% load static %}
-<button class="barista-launcher" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="barista-title" aria-label="Ask the barista">
+<button class="barista-launcher" type="button" aria-controls="barista-panel" aria-expanded="false">
   {% include "components/icon.html" with name="coffee" %}
+  <span>Ask the barista</span>
 </button>
-<dialog class="barista-dialog" aria-labelledby="barista-title">
-  <div class="barista-dialog-content">
-    <button class="product-dialog-close" type="button" aria-label="Close the barista">{% include "components/icon.html" with name="x" %}</button>
-    <p class="eyebrow">THE BAR</p>
-    <h2 id="barista-title">Ask the barista.</h2>
-    <div class="barista-log" aria-live="polite"></div>
-    <form class="barista-form">
-      {% csrf_token %}
-      <label>
-        <span class="sr-only">Ask the barista</span>
-        <input type="text" maxlength="400" placeholder="Something warm, not too sweet" autocomplete="off">
-      </label>
-      <button class="button button-dark" type="submit">Ask</button>
-    </form>
+<section id="barista-panel" class="barista-panel" role="dialog" aria-modal="false" aria-labelledby="barista-title" aria-describedby="barista-description" hidden>
+  <header class="barista-header">
+    <div class="barista-header-mark" aria-hidden="true">{% include "components/icon.html" with name="coffee" %}</div>
+    <div class="barista-header-copy">
+      <span class="barista-kicker">THE DAILY POUR · YOUR AI BARISTA</span>
+      <h2 id="barista-title">A good cup starts here.</h2>
+      <p id="barista-description">Tell me what you're in the mood for.</p>
+    </div>
+    <div class="barista-header-actions">
+      <button class="barista-icon-button barista-restart" type="button" aria-label="Start a new chat" hidden>{% include "components/icon.html" with name="rotate" %}</button>
+      <button class="barista-icon-button barista-close" type="button" aria-label="Close barista chat">{% include "components/icon.html" with name="x" %}</button>
+    </div>
+  </header>
+  <div class="barista-log" role="log" aria-label="Conversation with the AI barista" aria-live="polite" aria-relevant="additions text">
+    <div class="barista-welcome">
+      <p class="barista-welcome-copy">Hi there. I can help you find a new favorite from our menu.</p>
+      <p class="barista-suggestion-label">A PLACE TO START</p>
+      <div class="barista-suggestions" role="group" aria-label="Suggested questions">
+        <button type="button">Something not too sweet</button>
+        <button type="button">An iced pick-me-up</button>
+        <button type="button">Coffee and a little treat</button>
+      </div>
+    </div>
   </div>
-</dialog>
+  <div class="barista-status" role="status" aria-live="polite"></div>
+  <form class="barista-compose">
+    {% csrf_token %}
+    <label class="sr-only" for="barista-message-input">Message the AI barista</label>
+    <input id="barista-message-input" type="text" autocomplete="off" maxlength="1200" placeholder="What sounds good today?">
+    <button class="barista-send" type="submit" aria-label="Send message" disabled>{% include "components/icon.html" with name="send" %}</button>
+  </form>
+  <p class="barista-note">Allergies? Please confirm ingredients and preparation with our team.</p>
+</section>
 <script src="{% static 'pours/barista.js' %}"></script>
