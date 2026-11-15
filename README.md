@@ -10,11 +10,12 @@ The visual reference is [the-daily-pour-tau.vercel.app](https://the-daily-pour-t
 | --- | --- |
 | `apps.menu` | Categories, products, the homepage, and the full menu |
 | `apps.orders` | The pickup bag and saved orders |
-| `apps.ai.barista` | The Groq barista and guest preferences |
+| `apps.ai.barista` | The chat barista and guest preferences |
+| `apps.ai.reports` | The daily business report |
 
-Pages share `templates/base.html`. Shared markup is in `templates/components/`. Each app has its own template folder. Styles, scripts, and photos are in `static/menu/`.
+Groq calls live in `apps/ai/integrations/groq`. The barista and the daily report both use that client. Pages share `templates/base.html`. Shared markup is in `templates/components/`. Each app has its own template folder. Styles, scripts, and photos are in `static/menu/`.
 
-Business rules live in each app’s `services.py`. Views stay thin.
+Business rules live in each app’s `services.py`. Views stay thin. The daily report job is `generate_daily_report` in `apps/ai/reports/tasks.py`.
 
 ## Run it
 
@@ -47,8 +48,17 @@ The bag asks for a name, phone, and pickup window. After a successful order the 
 
 The barista replies through Groq and only names products that exist. Django sets the price and saves the order. The guest taps Add, then Place your order. With no `GROQ_API_KEY`, the chat says the barista is away.
 
+## Daily report
+
+```bash
+python manage.py daily_report
+python manage.py daily_report --date 2026-11-15
+```
+
+The command totals that day’s orders, items sold, revenue, average ticket, top drinks, and pickup windows. Groq writes the headline and note from those figures. The saved numbers stay Django’s. A quiet day, a missing key, or a Groq error still saves the report. Each day is stored once and shown in admin. Running it again updates that same day.
+
 ## Tests
 
 ```bash
-python manage.py test apps.menu apps.orders apps.ai.barista
+python manage.py test apps.menu apps.orders apps.ai.barista apps.ai.reports
 ```
