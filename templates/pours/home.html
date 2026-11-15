@@ -1,22 +1,18 @@
+{% extends "base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f5f0e7">
-  <meta name="color-scheme" content="light">
-  <meta name="description" content="A familiar ritual, made a little more special. Thoughtful coffee, something lovely on the side, and a moment that's all yours.">
-  <title>The Daily Pour — Coffee for Everyday Moments</title>
+
+{% block title %}The Daily Pour — Coffee for Everyday Moments{% endblock %}
+{% block description %}A familiar ritual, made a little more special. Thoughtful coffee, something lovely on the side, and a moment that's all yours.{% endblock %}
+{% block extra_head %}
   <link rel="preload" as="image" href="{% static 'pours/daily-pour-hero.png' %}">
-  <link rel="stylesheet" href="{% static 'pours/site.css' %}">
-</head>
-<body>
+{% endblock %}
+
+{% block content %}
   <main class="coffee-site">
     <header class="site-header">
       <div class="header-inner">
         <a class="brand-mark" href="#top" aria-label="The Daily Pour home">
-          <span class="brand-mark-icon" aria-hidden="true">{% include "pours/icon.html" with name="coffee" %}</span>
+          <span class="brand-mark-icon" aria-hidden="true">{% include "components/icon.html" with name="coffee" %}</span>
           <span class="brand-mark-copy"><span>THE DAILY</span><strong>POUR</strong></span>
         </a>
         <nav class="desktop-nav" aria-label="Main navigation">
@@ -24,7 +20,7 @@
           <a href="#our-story">Our story</a>
           <a href="#visit">Find us</a>
         </nav>
-        <a class="button button-dark header-cta" href="{% url 'menu' %}">Explore the menu {% include "pours/icon.html" with name="arrow-up-right" %}</a>
+        <a class="button button-dark header-cta" href="{% url 'menu' %}">Explore the menu {% include "components/icon.html" with name="arrow-up-right" %}</a>
       </div>
     </header>
 
@@ -34,8 +30,8 @@
         <h1 id="hero-title">Coffee for<br>everyday <em>moments.</em></h1>
         <p class="hero-description">A familiar ritual, made a little more special. Thoughtful coffee, something lovely on the side, and a moment that's all yours.</p>
         <div class="hero-actions">
-          <a class="button button-dark" href="#menu">Find your pour {% include "pours/icon.html" with name="arrow-right" %}</a>
-          <a class="text-link" href="#our-story">A little about us {% include "pours/icon.html" with name="arrow-down" %}</a>
+          <a class="button button-dark" href="#menu">Find your pour {% include "components/icon.html" with name="arrow-right" %}</a>
+          <a class="text-link" href="#our-story">A little about us {% include "components/icon.html" with name="arrow-down" %}</a>
         </div>
         <div class="hero-note"><span class="note-rule"></span> GOOD THINGS, BREWING DAILY</div>
       </div>
@@ -53,7 +49,7 @@
       </div>
       <a class="scroll-cue" href="#menu" aria-label="Scroll to the menu">
         <span>TAKE A LOOK AROUND</span>
-        {% include "pours/icon.html" with name="arrow-down" %}
+        {% include "components/icon.html" with name="arrow-down" %}
       </a>
     </section>
 
@@ -69,7 +65,7 @@
           <p class="eyebrow">A FEW HOUSE FAVORITES</p>
           <h2 id="menu-title">Your next <em>usual.</em></h2>
         </div>
-        <a class="text-link menu-all-link" href="{% url 'menu' %}">Explore all 30 favorites {% include "pours/icon.html" with name="arrow-right" %}</a>
+        <a class="text-link menu-all-link" href="{% url 'menu' %}">Explore all 30 favorites {% include "components/icon.html" with name="arrow-right" %}</a>
       </div>
       <div class="featured-menu-grid">
         {% for item in featured %}
@@ -77,18 +73,18 @@
             <span class="featured-menu-image">
               <img src="{% static item.static_featured %}" alt="{{ item.image_alt }}" loading="lazy">
               <span class="featured-menu-index">{{ item.featured_position|stringformat:"02d" }}</span>
-              <span class="featured-menu-arrow">{% include "pours/icon.html" with name="arrow-up-right" %}</span>
+              <span class="featured-menu-arrow">{% include "components/icon.html" with name="arrow-up-right" %}</span>
             </span>
             <span class="featured-menu-meta"><span>{{ item.category.name }}</span><span>{{ item.price_label }}</span></span>
             <span class="featured-menu-name">{{ item.name }}</span>
             <span class="featured-menu-description">{{ item.description }}</span>
-            <span class="featured-menu-link">VIEW THE FULL MENU {% include "pours/icon.html" with name="arrow-right" %}</span>
+            <span class="featured-menu-link">VIEW THE FULL MENU {% include "components/icon.html" with name="arrow-right" %}</span>
           </a>
         {% endfor %}
       </div>
       <div class="featured-menu-footer">
         <span>FIVE COLLECTIONS · THIRTY LITTLE FAVORITES</span>
-        <a class="button button-dark" href="{% url 'menu' %}">Open the full menu {% include "pours/icon.html" with name="arrow-up-right" %}</a>
+        <a class="button button-dark" href="{% url 'menu' %}">Open the full menu {% include "components/icon.html" with name="arrow-up-right" %}</a>
       </div>
     </section>
 
@@ -102,7 +98,7 @@
         <h2 id="story-title">Not just coffee.<br>A little <em>good feeling.</em></h2>
         <p>We believe the everyday deserves a little care. So we make coffee with good ingredients, a light touch, and room for you to make it your own.</p>
         <p>Whether it's your first stop or your favorite pause, there's always something here to make today feel like a good one.</p>
-        <a class="text-link" href="#visit">Come as you are {% include "pours/icon.html" with name="arrow-right" %}</a>
+        <a class="text-link" href="#visit">Come as you are {% include "components/icon.html" with name="arrow-right" %}</a>
         <div class="story-signoff">Make today a good one.<span>— THE DAILY POUR</span></div>
       </div>
     </section>
@@ -113,14 +109,14 @@
           <p class="eyebrow eyebrow-light">YOUR EVERYDAY, WITH A LITTLE EXTRA</p>
           <h2 id="visit-title">Make room for<br><em>a good cup.</em></h2>
           <p>Find your new favorite, revisit an old one, or simply take a moment. We'll have something lovely brewing.</p>
-          <a class="button button-cream" href="{% url 'menu' %}">See what's pouring {% include "pours/icon.html" with name="arrow-right" %}</a>
+          <a class="button button-cream" href="{% url 'menu' %}">See what's pouring {% include "components/icon.html" with name="arrow-right" %}</a>
         </div>
         <div class="visit-card">
-          <span class="visit-card-icon">{% include "pours/icon.html" with name="pin" %}</span>
+          <span class="visit-card-icon">{% include "components/icon.html" with name="pin" %}</span>
           <p class="eyebrow">A PLACE TO CALL YOURS</p>
           <h3>Come by<br>for your usual.</h3>
           <p>We're here for slow mornings, quick pick-me-ups, and everything in between.</p>
-          <a class="text-link text-link-light" href="#top">The Daily Pour {% include "pours/icon.html" with name="arrow-up-right" %}</a>
+          <a class="text-link text-link-light" href="#top">The Daily Pour {% include "components/icon.html" with name="arrow-up-right" %}</a>
           <span class="visit-card-mark" aria-hidden="true">D·P</span>
         </div>
       </div>
@@ -130,7 +126,7 @@
       <div class="footer-main">
         <div class="footer-brand">
           <a class="brand-mark brand-mark-light" href="#top" aria-label="The Daily Pour home">
-            <span class="brand-mark-icon" aria-hidden="true">{% include "pours/icon.html" with name="coffee" %}</span>
+            <span class="brand-mark-icon" aria-hidden="true">{% include "components/icon.html" with name="coffee" %}</span>
             <span class="brand-mark-copy"><span>THE DAILY</span><strong>POUR</strong></span>
           </a>
           <p>Coffee for everyday moments.</p>
@@ -143,7 +139,7 @@
         </div>
         <a class="footer-social" href="{% url 'menu' %}">
           <span>FIND YOUR NEXT FAVORITE</span>
-          {% include "pours/icon.html" with name="arrow-up-right" %}
+          {% include "components/icon.html" with name="arrow-up-right" %}
         </a>
       </div>
       <div class="footer-bottom">
@@ -153,6 +149,4 @@
       </div>
     </footer>
   </main>
-  {% include "pours/barista.html" %}
-</body>
-</html>
+{% endblock %}

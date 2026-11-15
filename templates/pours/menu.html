@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}The Menu — The Daily Pour{% endblock %}
+{% block description %}A familiar favorite or something new. Thoughtful coffee, bright matcha, and a little something lovely on the side.{% endblock %}
+
+{% block content %}
+  <main class="catalog-page">
+    <nav class="catalog-masthead" aria-label="Menu navigation">
+      <a class="catalog-brand" href="{% url 'home' %}" aria-label="The Daily Pour home">
+        <span>THE DAILY</span><strong>POUR</strong><i aria-hidden="true">/ MENU</i>
+      </a>
+      <div class="catalog-masthead-actions">
+        <a class="catalog-home-link" href="{% url 'home' %}">Back to the café {% include "components/icon.html" with name="arrow-left" %}</a>
+        <button class="order-open-button catalog-order-button" type="button" aria-haspopup="dialog" aria-label="Open order, 0 items, ₱0">
+          {% include "components/icon.html" with name="bag" %}
+          <span>Your order</span>
+          <span class="order-count">0</span>
+        </button>
+      </div>
+    </nav>
+
+    <header class="catalog-hero">
+      <div class="catalog-hero-copy">
+        <p class="eyebrow eyebrow-light"><span class="eyebrow-dot"></span> GOOD THINGS, BREWING DAILY</p>
+        <h1>Find your<br><em>everyday.</em></h1>
+        <p class="catalog-hero-description">A familiar favorite or something new. Thoughtful coffee, bright matcha, and a little something lovely on the side.</p>
+      </div>
+      <div class="catalog-hero-aside">
+        <span class="catalog-count">30</span>
+        <span class="catalog-count-label">WAYS TO MAKE<br>TODAY A GOOD ONE</span>
+        <a class="catalog-scroll-link" href="#menu-products">TAKE A LOOK {% include "components/icon.html" with name="arrow-down" %}</a>
+      </div>
+      <div class="catalog-hero-footer">
+        <span>FIVE COLLECTIONS</span>
+        <span>FRESHLY MADE, ALWAYS</span>
+      </div>
+    </header>
+
+    <section class="catalog-content" id="menu-products" aria-labelledby="catalog-title">
+      <div class="catalog-section-heading">
+        <div>
+          <p class="eyebrow">THE DAILY POUR MENU</p>
+          <h2 id="catalog-title">A little <em>something.</em></h2>
+        </div>
+        <span class="catalog-section-note">Take your time. Find your usual.</span>
+      </div>
+      <div class="catalog-controls">
+        <div class="catalog-category-list" role="group" aria-label="Filter menu by category"></div>
+        <label class="catalog-search">
+          <span class="sr-only">Search menu</span>
+          {% include "components/icon.html" with name="search" %}
+          <input type="search" placeholder="Find a favorite">
+        </label>
+      </div>
+      <p class="catalog-results" aria-live="polite"></p>
+      <div class="catalog-product-grid" id="catalog-products"></div>
+      <div class="catalog-no-results" hidden>
+        <p>No favorites found just yet.</p>
+        <button type="button">Clear search {% include "components/icon.html" with name="arrow-right" %}</button>
+      </div>
+      <footer class="catalog-footer">
+        <span>GOOD COFFEE. GOOD COMPANY.</span>
+        <a href="{% url 'home' %}">Back to The Daily Pour {% include "components/icon.html" with name="arrow-right" %}</a>
+      </footer>
+    </section>
+
+    {% include "orders/bag.html" %}
+
+    <dialog class="product-dialog catalog-detail-dialog" aria-labelledby="catalog-product-title">
+      <div class="product-dialog-layout">
+        <div class="product-dialog-image catalog-detail-image">
+          <span class="product-dialog-category"></span>
+        </div>
+        <div class="product-dialog-content">
+          <button class="product-dialog-close" type="button" aria-label="Close product details">{% include "components/icon.html" with name="x" %}</button>
+          <p class="eyebrow"></p>
+          <h2 id="catalog-product-title"></h2>
+          <p class="product-dialog-description"></p>
+          <p class="product-dialog-notes"></p>
+          <div class="product-dialog-price">
+            <span>MADE FRESH FOR YOU</span>
+            <strong></strong>
+          </div>
+          <div class="product-recipe">
+            <p class="eyebrow">WHAT GOES IN</p>
+            <ul></ul>
+            <p class="product-method"></p>
+          </div>
+          <div class="product-modifiers"></div>
+          <button class="button button-dark product-dialog-done" type="button">{% include "components/icon.html" with name="bag" %} <span>Add to order</span></button>
+        </div>
+      </div>
+    </dialog>
+  </main>
+{% endblock %}
+
+{% block extra_scripts %}
+  {{ catalog_json|json_script:"menu-data" }}
+  <script src="{% static 'pours/menu.js' %}"></script>
+{% endblock %}

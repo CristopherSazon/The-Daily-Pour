@@ -1,10 +1,10 @@
 {% load static %}
 <button class="barista-launcher" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="barista-title" aria-label="Ask the barista">
-  {% include "pours/icon.html" with name="coffee" %}
+  {% include "components/icon.html" with name="coffee" %}
 </button>
 <dialog class="barista-dialog" aria-labelledby="barista-title">
   <div class="barista-dialog-content">
-    <button class="product-dialog-close" type="button" aria-label="Close the barista">{% include "pours/icon.html" with name="x" %}</button>
+    <button class="product-dialog-close" type="button" aria-label="Close the barista">{% include "components/icon.html" with name="x" %}</button>
     <p class="eyebrow">THE BAR</p>
     <h2 id="barista-title">Ask the barista.</h2>
     <div class="barista-log" aria-live="polite"></div>

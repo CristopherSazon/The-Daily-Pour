@@ -1,0 +1,19 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f0e7">
+  <meta name="color-scheme" content="light">
+  <title>{% block title %}The Daily Pour{% endblock %}</title>
+  <meta name="description" content="{% block description %}{% endblock %}">
+  {% block extra_head %}{% endblock %}
+  <link rel="stylesheet" href="{% static 'pours/site.css' %}">
+</head>
+<body>
+  {% block content %}{% endblock %}
+  {% block extra_scripts %}{% endblock %}
+  {% include "barista/widget.html" %}
+</body>
+</html>

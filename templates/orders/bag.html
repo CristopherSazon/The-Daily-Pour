@@ -1,0 +1,56 @@
+<dialog class="order-dialog" aria-labelledby="catalog-order-title">
+  <div class="order-dialog-content">
+    <button class="product-dialog-close" type="button" aria-label="Close your order">{% include "components/icon.html" with name="x" %}</button>
+    <p class="eyebrow">MADE JUST FOR YOU</p>
+    <h2 id="catalog-order-title">Your order.</h2>
+    <div class="order-empty">
+      <p>Your bag is taking a little breather.</p>
+      <button class="button button-dark order-back" type="button">Back to the menu {% include "components/icon.html" with name="arrow-right" %}</button>
+    </div>
+    <template id="order-line-template">
+      <div class="order-line">
+        <div class="order-line-photo"></div>
+          <div class="order-line-info">
+            <span></span>
+            <strong></strong>
+            <span class="order-line-modifiers"></span>
+            <span></span>
+          </div>
+        <div class="order-quantity">
+          <button type="button" data-step="-1">{% include "components/icon.html" with name="minus" %}</button>
+          <span></span>
+          <button type="button" data-step="1">{% include "components/icon.html" with name="plus" %}</button>
+        </div>
+      </div>
+    </template>
+    <div class="order-dialog-grid" hidden>
+      <div>
+        <div class="order-lines"></div>
+        <div class="order-total">
+          <span class="order-total-label"></span>
+          <strong></strong>
+        </div>
+      </div>
+      <form class="order-form">
+        {% csrf_token %}
+        <p class="eyebrow">PICKUP DETAILS</p>
+        <label class="order-field" for="customer-name">Your name
+          <input id="customer-name" name="customer-name" autocomplete="name" required>
+        </label>
+        <label class="order-field" for="customer-phone">Phone number
+          <input id="customer-phone" name="customer-phone" autocomplete="tel" type="tel" required>
+        </label>
+        <label class="order-field" for="pickup-time">Pickup time
+          <select id="pickup-time" name="pickup-time" required>
+            <option value="" disabled selected>Choose a pickup window</option>
+            <option>As soon as possible</option>
+            <option>Within 30 minutes</option>
+            <option>Within 1 hour</option>
+          </select>
+        </label>
+        <button class="button button-dark order-submit" type="submit">{% include "components/icon.html" with name="bag" %} Place your order</button>
+        <p class="order-note">We'll have it ready when you arrive.</p>
+      </form>
+    </div>
+  </div>
+</dialog>
