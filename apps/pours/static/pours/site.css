@@ -195,7 +195,10 @@
 .catalog-footer{flex-direction:column;align-items:flex-start;gap:11px;margin-top:34px}
 }
 .catalog-masthead-actions{flex-wrap:wrap;justify-content:flex-end}
-.barista-open-button svg{width:15px;height:15px}
+.barista-launcher{position:fixed;right:22px;bottom:22px;z-index:40;width:58px;height:58px;border:0;border-radius:50%;background:var(--espresso);color:var(--cream);box-shadow:0 14px 34px #150f0a38;cursor:pointer;place-items:center;display:grid}
+.barista-launcher svg{width:22px;height:22px}
+.barista-launcher:hover{background:#604432}
+.barista-launcher:focus-visible{outline:2px solid var(--caramel);outline-offset:3px}
 .order-line-modifiers{color:#8a7c6d;font-size:10px}
 .order-line-modifiers[hidden]{display:none !important}
 .product-modifiers{display:grid;gap:10px;margin-top:14px}
@@ -204,11 +207,11 @@
 .modifier-options{display:flex;flex-wrap:wrap;gap:6px}
 .modifier-options button{border:1px solid var(--border);background:transparent;color:var(--espresso);cursor:pointer;padding:6px 9px;font-size:10px}
 .modifier-options button[aria-pressed="true"]{background:var(--espresso);border-color:var(--espresso);color:var(--cream)}
-.barista-dialog{background:var(--cream);width:min(560px,100% - 36px);max-width:none;max-height:min(90vh,760px);color:var(--espresso);border:1px solid #d9d0c1;margin:auto;padding:0;position:fixed;inset:0;overflow:hidden;box-shadow:0 22px 90px #150f0a47}
-.barista-dialog::backdrop{backdrop-filter:blur(3px);background:#1c1510ad}
-.barista-dialog-content{max-height:min(90vh,760px);padding:36px 32px 24px;display:flex;flex-direction:column;position:relative}
-.barista-dialog-content h2{font-family:var(--serif);letter-spacing:-.04em;margin:10px 0 0;font-size:40px;font-weight:400}
-.barista-log{display:flex;flex-direction:column;gap:14px;min-height:180px;margin-top:22px;overflow-y:auto;padding-right:4px}
+.barista-dialog{background:var(--cream);width:min(380px,calc(100vw - 32px));height:min(620px,calc(100vh - 130px));max-width:none;max-height:none;color:var(--espresso);border:1px solid #d9d0c1;margin:0;padding:0;position:fixed;inset:auto 22px 96px auto;overflow:hidden;box-shadow:0 22px 70px #150f0a3d}
+.barista-dialog::backdrop{background:transparent}
+.barista-dialog-content{height:100%;max-height:none;padding:28px 20px 16px;display:flex;flex-direction:column;position:relative}
+.barista-dialog-content h2{font-family:var(--serif);letter-spacing:-.04em;margin:10px 0 0;font-size:32px;font-weight:400}
+.barista-log{display:flex;flex:1;flex-direction:column;gap:14px;min-height:0;margin-top:18px;overflow-y:auto;padding-right:4px}
 .barista-user{align-self:flex-end;background:#efe7da;margin:0;max-width:85%;padding:10px 12px;font-size:13px;line-height:1.5}
 .barista-reply{display:grid;gap:10px;max-width:95%}
 .barista-reply>p{margin:0;font-size:14px;line-height:1.6}
@@ -221,3 +224,7 @@
 .barista-form label{flex:1}
 .barista-form input{width:100%;border:0;background:transparent;color:var(--espresso);font:inherit;font-size:14px;outline:none}
 .barista-form .button{min-height:42px;flex:none}
+@media (max-width:560px){
+.barista-launcher{right:14px;bottom:14px}
+.barista-dialog{left:12px;right:12px;bottom:84px;width:auto;height:min(70vh,560px)}
+}

@@ -33,10 +33,6 @@
   const form = orderDialog.querySelector(".order-form");
   const note = orderDialog.querySelector(".order-note");
   const lineTemplate = document.getElementById("order-line-template");
-  const baristaDialog = document.querySelector(".barista-dialog");
-  const baristaLog = document.querySelector(".barista-log");
-  const baristaForm = document.querySelector(".barista-form");
-  const baristaInput = baristaForm.querySelector("input");
   const defaultEmpty = emptyCopy.textContent;
   const defaultNote = note.textContent;
   const modifierGroups = [
@@ -48,9 +44,6 @@
   let currentSlug = "";
   let selectedModifiers = [];
   let guestPreferences = { milk: "", sweetness: "", temperature: "" };
-  let transcript = [];
-  let baristaReady = false;
-  let baristaBusy = false;
   let category = "daily-classics";
 
   function peso(amount) {
@@ -277,6 +270,32 @@
     renderCart();
   }
 
+  window.DailyPour = {
+    addLine: addLine,
+    lines: function () {
+      return cart.map((line) => ({
+        slug: line.slug,
+        quantity: line.quantity,
+        modifiers: line.modifiers,
+      }));
+    },
+    prefill: function (name, phone, pickup) {
+      const nameInput = form.querySelector("#customer-name");
+      const phoneInput = form.querySelector("#customer-phone");
+      const pickupInput = form.querySelector("#pickup-time");
+      if (name && !nameInput.value) nameInput.value = name;
+      if (phone && !phoneInput.value) phoneInput.value = phone;
+      if (pickup && !pickupInput.value) pickupInput.value = pickup;
+    },
+    setPreferences: function (preferences) {
+      guestPreferences = preferences || guestPreferences;
+    },
+  };
+  JSON.parse(sessionStorage.getItem("daily-pour-pending") || "[]").forEach((line) => {
+    addLine(line.slug, line.modifiers || [], line.quantity || 1);
+  });
+  sessionStorage.removeItem("daily-pour-pending");
+
   function openItem(slug) {
     const item = bySlug.get(slug);
     if (!item) return;
@@ -402,138 +421,8 @@
     cart = [];
     form.reset();
     emptyCopy.textContent = "We'll have it ready for pickup.";
-    baristaReady = false;
+    document.dispatchEvent(new Event("daily-pour-ordered"));
     renderCart();
-  });
-
-  function prefill(name, phone, pickup) {
-    const nameInput = form.querySelector("#customer-name");
-    const phoneInput = form.querySelector("#customer-phone");
-    const pickupInput = form.querySelector("#pickup-time");
-    if (name && !nameInput.value) nameInput.value = name;
-    if (phone && !phoneInput.value) phoneInput.value = phone;
-    if (pickup && !pickupInput.value) pickupInput.value = pickup;
-  }
-
-  function appendExchange(userText, payload) {
-    if (userText) {
-      const mine = document.createElement("p");
-      mine.className = "barista-user";
-      mine.textContent = userText;
-      baristaLog.append(mine);
-    }
-    const reply = document.createElement("div");
-    reply.className = "barista-reply";
-    const say = document.createElement("p");
-    say.textContent = payload.say || "";
-    reply.append(say);
-    (payload.items || []).forEach((suggestion) => reply.append(suggestionCard(suggestion)));
-    if (payload.recall && payload.recall.phone) {
-      const confirm = document.createElement("button");
-      confirm.type = "button";
-      confirm.className = "barista-recall";
-      confirm.textContent = payload.recall.prompt;
-      confirm.addEventListener("click", () => send("", payload.recall.phone));
-      reply.append(confirm);
-    }
-    baristaLog.append(reply);
-    baristaLog.scrollTop = baristaLog.scrollHeight;
-  }
-
-  function suggestionCard(suggestion) {
-    const item = bySlug.get(suggestion.slug);
-    const card = document.createElement("article");
-    card.className = "barista-card";
-    if (item) {
-      const image = document.createElement("span");
-      image.className = "barista-card-image";
-      image.append(sprite(item));
-      card.append(image);
-    }
-    const copy = document.createElement("div");
-    const name = document.createElement("strong");
-    name.textContent = suggestion.name;
-    const reason = document.createElement("p");
-    reason.textContent = suggestion.reason || "";
-    const add = document.createElement("button");
-    add.type = "button";
-    add.className = "catalog-card-add";
-    add.append(icon("plus"), document.createTextNode(" Add · " + (suggestion.unit_price_label || suggestion.price_label)));
-    add.addEventListener("click", () => addLine(suggestion.slug, suggestion.selected_modifiers || [], 1));
-    copy.append(name, reason, add);
-    card.append(copy);
-    return card;
-  }
-
-  async function loadBarista() {
-    const response = await fetch("/barista/");
-    const payload = await response.json().catch(() => ({}));
-    if (!response.ok) {
-      if (!baristaLog.childElementCount) appendExchange("", { say: payload.error || "The barista is away from the bar right now." });
-      return;
-    }
-    guestPreferences = payload.preferences || guestPreferences;
-    prefill(payload.name, payload.phone, "");
-    if (!baristaLog.childElementCount) appendExchange("", payload);
-    baristaReady = true;
-  }
-
-  async function send(message, confirmPhone) {
-    if (baristaBusy) return;
-    const history = transcript.slice(-8);
-    if (message) transcript.push({ role: "user", content: message });
-    baristaBusy = true;
-    baristaForm.querySelector("button").disabled = true;
-    try {
-      const response = await fetch("/barista/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-CSRFToken": csrfToken(),
-        },
-        body: JSON.stringify({
-          message: message,
-          history: history,
-          cart: cart.map((line) => ({
-            slug: line.slug,
-            quantity: line.quantity,
-            modifiers: line.modifiers,
-          })),
-          confirm_phone: confirmPhone || "",
-        }),
-      });
-      const payload = await response.json().catch(() => ({}));
-      if (!response.ok) {
-        appendExchange(message, { say: payload.error || "The barista is away from the bar right now." });
-        return;
-      }
-      if (payload.say) transcript.push({ role: "assistant", content: payload.say });
-      (payload.cart || []).forEach((line) => addLine(line.slug, line.modifiers || [], line.quantity || 1));
-      if (payload.preferences) guestPreferences = payload.preferences;
-      prefill(payload.name, payload.phone, payload.pickup);
-      appendExchange(message, payload);
-    } finally {
-      baristaBusy = false;
-      baristaForm.querySelector("button").disabled = false;
-      baristaInput.focus();
-    }
-  }
-
-  document.querySelector(".barista-open-button").addEventListener("click", async () => {
-    baristaDialog.showModal();
-    if (!baristaReady) await loadBarista();
-    baristaInput.focus();
-  });
-  baristaDialog.querySelector(".product-dialog-close").addEventListener("click", () => baristaDialog.close());
-  baristaDialog.addEventListener("click", (event) => {
-    if (event.target === baristaDialog) baristaDialog.close();
-  });
-  baristaForm.addEventListener("submit", (event) => {
-    event.preventDefault();
-    const message = baristaInput.value.trim();
-    if (!message) return;
-    baristaInput.value = "";
-    send(message, "");
   });
 
   renderFilters();

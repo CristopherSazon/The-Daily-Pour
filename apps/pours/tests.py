@@ -59,6 +59,7 @@ class MenuApiTests(TestCase):
         self.assertContains(response, 'href="/menu/"')
         self.assertContains(response, 'Come by')
         self.assertContains(response, 'pours/site.css')
+        self.assertContains(response, 'Ask the barista')
 
     def test_menu_page_lists_every_collection(self):
         response = self.client.get('/menu/')
