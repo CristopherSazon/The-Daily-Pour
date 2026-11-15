@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'apps.menu',
     'apps.orders',
     'apps.ai.barista',
+    'apps.ai.reports',
 ]
 
 MIDDLEWARE = [
