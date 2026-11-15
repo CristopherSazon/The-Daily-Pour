@@ -1,6 +1,6 @@
 [
 {
-  "model": "pours.category",
+  "model": "menu.category",
   "pk": 1,
   "fields": {
     "name": "The Daily Classics",
@@ -9,7 +9,7 @@
   }
 },
 {
-  "model": "pours.category",
+  "model": "menu.category",
   "pk": 2,
   "fields": {
     "name": "The Signature Pour",
@@ -18,7 +18,7 @@
   }
 },
 {
-  "model": "pours.category",
+  "model": "menu.category",
   "pk": 3,
   "fields": {
     "name": "The Custom Pour",
@@ -27,7 +27,7 @@
   }
 },
 {
-  "model": "pours.category",
+  "model": "menu.category",
   "pk": 4,
   "fields": {
     "name": "The Matcha Edit",
@@ -36,7 +36,7 @@
   }
 },
 {
-  "model": "pours.category",
+  "model": "menu.category",
   "pk": 5,
   "fields": {
     "name": "The Daily Bites",
@@ -45,7 +45,7 @@
   }
 },
 {
-  "model": "pours.menuitem",
+  "model": "menu.product",
   "pk": 1,
   "fields": {
     "category": 2,
@@ -63,7 +63,7 @@
   }
 },
 {
-  "model": "pours.menuitem",
+  "model": "menu.product",
   "pk": 2,
   "fields": {
     "category": 4,
@@ -81,7 +81,7 @@
   }
 },
 {
-  "model": "pours.menuitem",
+  "model": "menu.product",
   "pk": 3,
   "fields": {
     "category": 5,
@@ -99,7 +99,7 @@
   }
 },
 {
-  "model": "pours.menuitem",
+  "model": "menu.product",
   "pk": 4,
   "fields": {
     "category": 1,
@@ -117,7 +117,7 @@
   }
 },
 {
-  "model": "pours.menuitem",
+  "model": "menu.product",
   "pk": 5,
   "fields": {
     "category": 1,
@@ -135,7 +135,7 @@
   }
 },
 {
-  "model": "pours.menuitem",
+  "model": "menu.product",
   "pk": 6,
   "fields": {
     "category": 1,
@@ -153,7 +153,7 @@
   }
 },
 {
-  "model": "pours.menuitem",
+  "model": "menu.product",
   "pk": 7,
   "fields": {
     "category": 2,
@@ -171,7 +171,7 @@
   }
 },
 {
-  "model": "pours.menuitem",
+  "model": "menu.product",
   "pk": 8,
   "fields": {
     "category": 2,
@@ -189,7 +189,7 @@
   }
 },
 {
-  "model": "pours.menuitem",
+  "model": "menu.product",
   "pk": 9,
   "fields": {
     "category": 3,
@@ -207,7 +207,7 @@
   }
 },
 {
-  "model": "pours.menuitem",
+  "model": "menu.product",
   "pk": 10,
   "fields": {
     "category": 3,
@@ -225,7 +225,7 @@
   }
 },
 {
-  "model": "pours.menuitem",
+  "model": "menu.product",
   "pk": 11,
   "fields": {
     "category": 3,
@@ -243,7 +243,7 @@
   }
 },
 {
-  "model": "pours.menuitem",
+  "model": "menu.product",
   "pk": 12,
   "fields": {
     "category": 4,
@@ -261,7 +261,7 @@
   }
 },
 {
-  "model": "pours.menuitem",
+  "model": "menu.product",
   "pk": 13,
   "fields": {
     "category": 4,
@@ -279,7 +279,7 @@
   }
 },
 {
-  "model": "pours.menuitem",
+  "model": "menu.product",
   "pk": 14,
   "fields": {
     "category": 5,
@@ -297,7 +297,7 @@
   }
 },
 {
-  "model": "pours.menuitem",
+  "model": "menu.product",
   "pk": 15,
   "fields": {
     "category": 5,
@@ -315,7 +315,7 @@
   }
 },
 {
-  "model": "pours.recipeline",
+  "model": "menu.recipeline",
   "pk": 1,
   "fields": {
     "item": 1,
@@ -324,7 +324,7 @@
   }
 },
 {
-  "model": "pours.recipeline",
+  "model": "menu.recipeline",
   "pk": 2,
   "fields": {
     "item": 1,
@@ -333,7 +333,7 @@
   }
 },
 {
-  "model": "pours.recipeline",
+  "model": "menu.recipeline",
   "pk": 3,
   "fields": {
     "item": 1,
@@ -342,7 +342,7 @@
   }
 },
 {
-  "model": "pours.recipeline",
+  "model": "menu.recipeline",
   "pk": 4,
   "fields": {
     "item": 1,
@@ -351,7 +351,7 @@
   }
 },
 {
-  "model": "pours.recipeline",
+  "model": "menu.recipeline",
   "pk": 5,
   "fields": {
     "item": 2,
@@ -360,7 +360,7 @@
   }
 },
 {
-  "model": "pours.recipeline",
+  "model": "menu.recipeline",
   "pk": 6,
   "fields": {
     "item": 2,
@@ -369,7 +369,7 @@
   }
 },
 {
-  "model": "pours.recipeline",
+  "model": "menu.recipeline",
   "pk": 7,
   "fields": {
     "item": 2,
@@ -378,7 +378,7 @@
   }
 },
 {
-  "model": "pours.recipeline",
+  "model": "menu.recipeline",
   "pk": 8,
   "fields": {
     "item": 2,
@@ -387,7 +387,7 @@
   }
 },
 {
-  "model": "pours.recipeline",
+  "model": "menu.recipeline",
   "pk": 9,
   "fields": {
     "item": 3,
@@ -396,7 +396,7 @@
   }
 },
 {
-  "model": "pours.recipeline",
+  "model": "menu.recipeline",
   "pk": 10,
   "fields": {
     "item": 3,
@@ -405,7 +405,7 @@
   }
 },
 {
-  "model": "pours.recipeline",
+  "model": "menu.recipeline",
   "pk": 11,
   "fields": {
     "item": 3,
@@ -414,7 +414,7 @@
   }
 },
 {
-  "model": "pours.recipeline",
+  "model": "menu.recipeline",
   "pk": 12,
   "fields": {
     "item": 4,
@@ -423,7 +423,7 @@
   }
 },
 {
-  "model": "pours.recipeline",
+  "model": "menu.recipeline",
   "pk": 13,
   "fields": {
     "item": 5,
@@ -432,7 +432,7 @@
   }
 },
 {
-  "model": "pours.recipeline",
+  "model": "menu.recipeline",
   "pk": 14,
   "fields": {
     "item": 5,
@@ -441,7 +441,7 @@
   }
 },
 {
-  "model": "pours.recipeline",
+  "model": "menu.recipeline",
   "pk": 15,
   "fields": {
     "item": 6,
@@ -450,7 +450,7 @@
   }
 },
 {
-  "model": "pours.recipeline",
+  "model": "menu.recipeline",
   "pk": 16,
   "fields": {
     "item": 6,
@@ -459,7 +459,7 @@
   }
 },
 {
-  "model": "pours.recipeline",
+  "model": "menu.recipeline",
   "pk": 17,
   "fields": {
     "item": 7,
@@ -468,7 +468,7 @@
   }
 },
 {
-  "model": "pours.recipeline",
+  "model": "menu.recipeline",
   "pk": 18,
   "fields": {
     "item": 7,
@@ -477,7 +477,7 @@
   }
 },
 {
-  "model": "pours.recipeline",
+  "model": "menu.recipeline",
   "pk": 19,
   "fields": {
     "item": 7,
@@ -486,7 +486,7 @@
   }
 },
 {
-  "model": "pours.recipeline",
+  "model": "menu.recipeline",
   "pk": 20,
   "fields": {
     "item": 8,
@@ -495,7 +495,7 @@
   }
 },
 {
-  "model": "pours.recipeline",
+  "model": "menu.recipeline",
   "pk": 21,
   "fields": {
     "item": 8,
@@ -504,7 +504,7 @@
   }
 },
 {
-  "model": "pours.recipeline",
+  "model": "menu.recipeline",
   "pk": 22,
   "fields": {
     "item": 8,
@@ -513,7 +513,7 @@
   }
 },
 {
-  "model": "pours.recipeline",
+  "model": "menu.recipeline",
   "pk": 23,
   "fields": {
     "item": 9,
@@ -522,7 +522,7 @@
   }
 },
 {
-  "model": "pours.recipeline",
+  "model": "menu.recipeline",
   "pk": 24,
   "fields": {
     "item": 9,
@@ -531,7 +531,7 @@
   }
 },
 {
-  "model": "pours.recipeline",
+  "model": "menu.recipeline",
   "pk": 25,
   "fields": {
     "item": 10,
@@ -540,7 +540,7 @@
   }
 },
 {
-  "model": "pours.recipeline",
+  "model": "menu.recipeline",
   "pk": 26,
   "fields": {
     "item": 10,
@@ -549,7 +549,7 @@
   }
 },
 {
-  "model": "pours.recipeline",
+  "model": "menu.recipeline",
   "pk": 27,
   "fields": {
     "item": 10,
@@ -558,7 +558,7 @@
   }
 },
 {
-  "model": "pours.recipeline",
+  "model": "menu.recipeline",
   "pk": 28,
   "fields": {
     "item": 11,
@@ -567,7 +567,7 @@
   }
 },
 {
-  "model": "pours.recipeline",
+  "model": "menu.recipeline",
   "pk": 29,
   "fields": {
     "item": 11,
@@ -576,7 +576,7 @@
   }
 },
 {
-  "model": "pours.recipeline",
+  "model": "menu.recipeline",
   "pk": 30,
   "fields": {
     "item": 11,
@@ -585,7 +585,7 @@
   }
 },
 {
-  "model": "pours.recipeline",
+  "model": "menu.recipeline",
   "pk": 31,
   "fields": {
     "item": 12,
@@ -594,7 +594,7 @@
   }
 },
 {
-  "model": "pours.recipeline",
+  "model": "menu.recipeline",
   "pk": 32,
   "fields": {
     "item": 12,
@@ -603,7 +603,7 @@
   }
 },
 {
-  "model": "pours.recipeline",
+  "model": "menu.recipeline",
   "pk": 33,
   "fields": {
     "item": 12,
@@ -612,7 +612,7 @@
   }
 },
 {
-  "model": "pours.recipeline",
+  "model": "menu.recipeline",
   "pk": 34,
   "fields": {
     "item": 13,
@@ -621,7 +621,7 @@
   }
 },
 {
-  "model": "pours.recipeline",
+  "model": "menu.recipeline",
   "pk": 35,
   "fields": {
     "item": 13,
@@ -630,7 +630,7 @@
   }
 },
 {
-  "model": "pours.recipeline",
+  "model": "menu.recipeline",
   "pk": 36,
   "fields": {
     "item": 13,
@@ -639,7 +639,7 @@
   }
 },
 {
-  "model": "pours.recipeline",
+  "model": "menu.recipeline",
   "pk": 37,
   "fields": {
     "item": 13,
@@ -648,7 +648,7 @@
   }
 },
 {
-  "model": "pours.recipeline",
+  "model": "menu.recipeline",
   "pk": 38,
   "fields": {
     "item": 14,
@@ -657,7 +657,7 @@
   }
 },
 {
-  "model": "pours.recipeline",
+  "model": "menu.recipeline",
   "pk": 39,
   "fields": {
     "item": 14,
@@ -666,7 +666,7 @@
   }
 },
 {
-  "model": "pours.recipeline",
+  "model": "menu.recipeline",
   "pk": 40,
   "fields": {
     "item": 14,
@@ -675,7 +675,7 @@
   }
 },
 {
-  "model": "pours.recipeline",
+  "model": "menu.recipeline",
   "pk": 41,
   "fields": {
     "item": 15,
@@ -684,7 +684,7 @@
   }
 },
 {
-  "model": "pours.recipeline",
+  "model": "menu.recipeline",
   "pk": 42,
   "fields": {
     "item": 15,

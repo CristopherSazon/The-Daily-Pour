@@ -55,7 +55,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'apps.pours',
+    'apps.menu',
     'apps.orders',
     'apps.ai.barista',
 ]

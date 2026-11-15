@@ -9,7 +9,7 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('pours', '0002_seed_catalog'),
+        ('menu', '0002_seed_catalog'),
     ]
 
     operations = [
@@ -32,7 +32,7 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('quantity', models.PositiveSmallIntegerField()),
                 ('unit_price', models.DecimalField(decimal_places=2, max_digits=8)),
-                ('item', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='order_lines', to='pours.menuitem')),
+                ('item', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='order_lines', to='menu.menuitem')),
                 ('order', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='lines', to='orders.order')),
             ],
             options={

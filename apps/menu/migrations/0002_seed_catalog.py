@@ -12,7 +12,7 @@ def unload_catalog(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('pours', '0001_initial'),
+        ('menu', '0001_initial'),
     ]
 
     operations = [

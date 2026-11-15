@@ -40,7 +40,7 @@ class Migration(migrations.Migration):
                 ('is_featured', models.BooleanField(default=False)),
                 ('featured_position', models.PositiveSmallIntegerField(blank=True, null=True)),
                 ('position', models.PositiveSmallIntegerField(default=0)),
-                ('category', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='items', to='pours.category')),
+                ('category', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='items', to='menu.category')),
             ],
             options={
                 'ordering': ['position', 'name'],
@@ -52,7 +52,7 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('text', models.CharField(max_length=200)),
                 ('position', models.PositiveSmallIntegerField(default=0)),
-                ('item', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='recipe_lines', to='pours.menuitem')),
+                ('item', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='recipe_lines', to='menu.menuitem')),
             ],
             options={
                 'ordering': ['position', 'id'],

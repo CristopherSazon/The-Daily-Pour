@@ -2,7 +2,7 @@ from decimal import Decimal
 
 from django.test import TestCase
 
-from .models import MenuItem
+from .models import Product
 
 
 class MenuApiTests(TestCase):
@@ -58,7 +58,7 @@ class MenuApiTests(TestCase):
         self.assertContains(response, 'VIEW THE FULL MENU')
         self.assertContains(response, 'href="/menu/"')
         self.assertContains(response, 'Come by')
-        self.assertContains(response, 'pours/site.css')
+        self.assertContains(response, 'menu/site.css')
         self.assertContains(response, 'Ask the barista')
 
     def test_menu_page_lists_every_collection(self):
@@ -77,6 +77,6 @@ class MenuApiTests(TestCase):
         self.assertContains(response, 'Ask the barista')
 
     def test_price_label_keeps_centavos(self):
-        item = MenuItem.objects.get(slug='cloud-matcha')
+        item = Product.objects.get(slug='cloud-matcha')
         item.price = Decimal('195.50')
         self.assertEqual(item.price_label, '₱195.50')

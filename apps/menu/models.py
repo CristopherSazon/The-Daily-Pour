@@ -14,7 +14,7 @@ class Category(models.Model):
         return self.name
 
 
-class MenuItem(models.Model):
+class Product(models.Model):
     category = models.ForeignKey(
         Category,
         on_delete=models.PROTECT,
@@ -74,7 +74,7 @@ class MenuItem(models.Model):
         filename = self.image.rsplit('/', 1)[-1]
         if not filename:
             return ''
-        folder = 'pours/menu' if self.image.startswith('/menu/') else 'pours'
+        folder = 'menu/menu' if self.image.startswith('/menu/') else 'menu'
         return f'{folder}/{filename}'
 
     @property
@@ -82,12 +82,12 @@ class MenuItem(models.Model):
         filename = self.featured_image.rsplit('/', 1)[-1]
         if not filename:
             return ''
-        return f'pours/{filename}'
+        return f'menu/{filename}'
 
 
 class RecipeLine(models.Model):
     item = models.ForeignKey(
-        MenuItem,
+        Product,
         on_delete=models.CASCADE,
         related_name='recipe_lines',
     )

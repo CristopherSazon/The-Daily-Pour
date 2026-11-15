@@ -5,13 +5,13 @@ from .services import MenuService
 
 
 def home(request):
-    return render(request, 'pours/home.html', MenuService().home_context())
+    return render(request, 'menu/home.html', MenuService().home_context())
 
 
 def menu_page(request):
     return render(
         request,
-        'pours/menu.html',
+        'menu/menu.html',
         {'catalog_json': MenuService().catalog_document()},
     )
 

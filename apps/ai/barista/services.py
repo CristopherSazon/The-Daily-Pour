@@ -5,9 +5,9 @@ import uuid
 from django.conf import settings
 
 from apps.orders.models import Order
-from apps.pours.models import MenuItem
-from apps.pours.modifiers import for_category, keep_known, modifier_total, money_label
-from apps.pours.services import MenuService
+from apps.menu.models import Product
+from apps.menu.modifiers import for_category, keep_known, modifier_total, money_label
+from apps.menu.services import MenuService
 
 from .models import Guest
 
@@ -299,7 +299,7 @@ class BaristaService:
             return {}
         return {
             item.slug: item
-            for item in MenuItem.objects.select_related('category').prefetch_related('recipe_lines').filter(slug__in=wanted)
+            for item in Product.objects.select_related('category').prefetch_related('recipe_lines').filter(slug__in=wanted)
         }
 
     def _recall_for(self, guest, phones):

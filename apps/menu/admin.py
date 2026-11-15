@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Category, MenuItem, RecipeLine
+from .models import Category, Product, RecipeLine
 
 admin.site.site_header = 'The Daily Pour'
 admin.site.site_title = 'The Daily Pour'
@@ -19,8 +19,8 @@ class CategoryAdmin(admin.ModelAdmin):
     ordering = ('position',)
 
 
-@admin.register(MenuItem)
-class MenuItemAdmin(admin.ModelAdmin):
+@admin.register(Product)
+class ProductAdmin(admin.ModelAdmin):
     list_display = ('menu_number', 'name', 'category', 'price', 'is_featured')
     list_filter = ('category', 'is_featured')
     search_fields = ('name', 'description')

@@ -1,13 +1,13 @@
 from django.templatetags.static import static
 
-from .models import Category, MenuItem
+from .models import Category, Product
 from .modifiers import for_category
 
 
 class MenuService:
     def featured_items(self):
         return (
-            MenuItem.objects.filter(is_featured=True)
+            Product.objects.filter(is_featured=True)
             .select_related('category')
             .prefetch_related('recipe_lines')
             .order_by('featured_position')
@@ -18,7 +18,7 @@ class MenuService:
 
     def catalog_items(self):
         return (
-            MenuItem.objects.select_related('category')
+            Product.objects.select_related('category')
             .prefetch_related('recipe_lines')
             .order_by('category__position', 'position', 'name')
         )

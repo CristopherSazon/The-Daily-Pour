@@ -23,7 +23,7 @@ class Order(models.Model):
 class OrderLine(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='lines')
     item = models.ForeignKey(
-        'pours.MenuItem',
+        'menu.Product',
         on_delete=models.PROTECT,
         related_name='order_lines',
     )

@@ -1,7 +1,7 @@
 from django.db import transaction
 
-from apps.pours.models import MenuItem
-from apps.pours.modifiers import ModifierError, clean_modifiers, modifier_total
+from apps.menu.models import Product
+from apps.menu.modifiers import ModifierError, clean_modifiers, modifier_total
 
 from .models import Order, OrderLine
 
@@ -51,7 +51,7 @@ class OrderService:
         slugs = {slug for slug, _quantity, _modifiers in pending}
         items = {
             item.slug: item
-            for item in MenuItem.objects.select_related('category').filter(slug__in=slugs)
+            for item in Product.objects.select_related('category').filter(slug__in=slugs)
         }
         if set(items) != slugs:
             raise OrderError('One of those items is no longer on the menu.')
