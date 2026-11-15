@@ -1,9 +1,9 @@
-import json
 import re
 import uuid
 
 from django.conf import settings
 
+from apps.ai.integrations.groq import GroqClient, GroqError
 from apps.orders.models import Order
 from apps.menu.models import Product
 from apps.menu.modifiers import for_category, keep_known, modifier_total, money_label
@@ -445,46 +445,19 @@ class BaristaService:
 
 
 def guest_error(exc):
-    body = getattr(exc, 'body', None)
-    if isinstance(body, dict) and isinstance(body.get('error'), dict):
-        body = body['error']
-    if not isinstance(body, dict):
-        body = {}
-    code = str(body.get('code') or '')
-    kind = str(body.get('type') or '')
-    if code in {'credit_balance_exhausted', 'rate_limit_exceeded'} or kind in {'insufficient_quota', 'rate_limit_exceeded'}:
+    if getattr(exc, 'code', '') == 'rate_limit':
         return BaristaError('The Groq free limit has been reached, so the barista cannot answer yet.')
     return BaristaError('The barista is away from the bar right now.')
 
 
 def default_complete(instructions, transcript):
-    if not settings.GROQ_API_KEY:
-        raise BaristaError('The barista is away from the bar right now.')
     try:
-        from openai import OpenAI
-
-        client = OpenAI(
-            api_key=settings.GROQ_API_KEY,
-            base_url=settings.GROQ_BASE_URL,
-            timeout=20,
-        )
-        response = client.chat.completions.create(
+        return GroqClient().complete(
+            instructions,
+            transcript,
+            schema=REPLY_SCHEMA,
+            name='barista_reply',
             model=settings.BARISTA_MODEL,
-            messages=[{'role': 'system', 'content': instructions}, *transcript],
-            response_format={
-                'type': 'json_schema',
-                'json_schema': {
-                    'name': 'barista_reply',
-                    'strict': True,
-                    'schema': REPLY_SCHEMA,
-                },
-            },
         )
-        parsed = json.loads(response.choices[0].message.content or '')
-    except BaristaError:
-        raise
-    except Exception as exc:
+    except GroqError as exc:
         raise guest_error(exc) from exc
-    if not isinstance(parsed, dict):
-        raise BaristaError('The barista is away from the bar right now.')
-    return parsed

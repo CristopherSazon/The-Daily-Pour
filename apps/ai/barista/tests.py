@@ -2,6 +2,7 @@ from django.test import TestCase, override_settings
 
 from apps.ai.barista.models import Guest
 from apps.ai.barista.services import BaristaError, BaristaService, GuestService, guest_error
+from apps.ai.integrations.groq import GroqError, error_code
 from apps.orders.models import Order
 
 
@@ -138,7 +139,8 @@ class BaristaServiceTests(TestCase):
         class NoCredits(Exception):
             body = {'code': 'rate_limit_exceeded', 'type': 'rate_limit_exceeded'}
 
-        self.assertIn('Groq free limit', str(guest_error(NoCredits())))
+        self.assertEqual(error_code(NoCredits()), 'rate_limit')
+        self.assertIn('Groq free limit', str(guest_error(GroqError('rate_limit'))))
 
     def test_missing_key_tells_the_guest_the_barista_is_away(self):
         guest = Guest.objects.create()
