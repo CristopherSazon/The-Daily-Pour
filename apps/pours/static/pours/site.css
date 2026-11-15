@@ -194,3 +194,30 @@
 .catalog-card-description{min-height:0}
 .catalog-footer{flex-direction:column;align-items:flex-start;gap:11px;margin-top:34px}
 }
+.catalog-masthead-actions{flex-wrap:wrap;justify-content:flex-end}
+.barista-open-button svg{width:15px;height:15px}
+.order-line-modifiers{color:#8a7c6d;font-size:10px}
+.order-line-modifiers[hidden]{display:none !important}
+.product-modifiers{display:grid;gap:10px;margin-top:14px}
+.modifier-row{align-items:center;gap:8px 12px;display:flex;flex-wrap:wrap}
+.modifier-row>span{color:#8a7c6d;letter-spacing:.14em;min-width:72px;font-size:8px;font-weight:600}
+.modifier-options{display:flex;flex-wrap:wrap;gap:6px}
+.modifier-options button{border:1px solid var(--border);background:transparent;color:var(--espresso);cursor:pointer;padding:6px 9px;font-size:10px}
+.modifier-options button[aria-pressed="true"]{background:var(--espresso);border-color:var(--espresso);color:var(--cream)}
+.barista-dialog{background:var(--cream);width:min(560px,100% - 36px);max-width:none;max-height:min(90vh,760px);color:var(--espresso);border:1px solid #d9d0c1;margin:auto;padding:0;position:fixed;inset:0;overflow:hidden;box-shadow:0 22px 90px #150f0a47}
+.barista-dialog::backdrop{backdrop-filter:blur(3px);background:#1c1510ad}
+.barista-dialog-content{max-height:min(90vh,760px);padding:36px 32px 24px;display:flex;flex-direction:column;position:relative}
+.barista-dialog-content h2{font-family:var(--serif);letter-spacing:-.04em;margin:10px 0 0;font-size:40px;font-weight:400}
+.barista-log{display:flex;flex-direction:column;gap:14px;min-height:180px;margin-top:22px;overflow-y:auto;padding-right:4px}
+.barista-user{align-self:flex-end;background:#efe7da;margin:0;max-width:85%;padding:10px 12px;font-size:13px;line-height:1.5}
+.barista-reply{display:grid;gap:10px;max-width:95%}
+.barista-reply>p{margin:0;font-size:14px;line-height:1.6}
+.barista-card{border:1px solid var(--border);grid-template-columns:72px minmax(0,1fr);gap:12px;padding:10px;display:grid}
+.barista-card-image{background:#e0d4c2;min-height:84px;position:relative;overflow:hidden}
+.barista-card strong{font-family:var(--serif);font-size:18px;font-weight:400}
+.barista-card p{color:#74695d;margin:4px 0 0;font-size:12px;line-height:1.5}
+.barista-recall{border:0;background:transparent;color:var(--espresso);cursor:pointer;justify-self:start;padding:0;font-size:12px;font-weight:600;text-align:left;text-decoration:underline}
+.barista-form{border-top:1px solid var(--border);align-items:center;gap:10px;margin-top:16px;padding-top:14px;display:flex}
+.barista-form label{flex:1}
+.barista-form input{width:100%;border:0;background:transparent;color:var(--espresso);font:inherit;font-size:14px;outline:none}
+.barista-form .button{min-height:42px;flex:none}

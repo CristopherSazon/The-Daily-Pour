@@ -28,6 +28,7 @@ class OrderLine(models.Model):
         related_name='order_lines',
     )
     quantity = models.PositiveSmallIntegerField()
+    modifiers = models.JSONField(blank=True, default=list)
     unit_price = models.DecimalField(max_digits=8, decimal_places=2)
 
     class Meta:

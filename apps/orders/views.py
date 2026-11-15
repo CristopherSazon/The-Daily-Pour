@@ -3,17 +3,23 @@ import json
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 
+from apps.ai.barista.services import GuestService
+
 from .services import OrderError, OrderService
 
 
 @require_POST
 def place_order(request):
+    guests = GuestService()
+    guest = guests.ensure(request)
     try:
         payload = json.loads(request.body)
     except json.JSONDecodeError:
-        return JsonResponse({'error': 'Send the order as JSON.'}, status=400)
+        response = JsonResponse({'error': 'Send the order as JSON.'}, status=400)
+        return guests.attach_cookie(response, guest)
     if not isinstance(payload, dict):
-        return JsonResponse({'error': 'Send the order as JSON.'}, status=400)
+        response = JsonResponse({'error': 'Send the order as JSON.'}, status=400)
+        return guests.attach_cookie(response, guest)
 
     try:
         order = OrderService().place(
@@ -23,5 +29,8 @@ def place_order(request):
             lines=payload.get('lines'),
         )
     except OrderError as exc:
-        return JsonResponse({'error': str(exc)}, status=400)
-    return JsonResponse({'ok': True, 'id': order.id})
+        response = JsonResponse({'error': str(exc)}, status=400)
+        return guests.attach_cookie(response, guest)
+    guests.record_order(guest, order)
+    response = JsonResponse({'ok': True, 'id': order.id})
+    return guests.attach_cookie(response, guest)

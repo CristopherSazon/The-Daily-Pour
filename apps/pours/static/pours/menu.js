@@ -22,7 +22,7 @@
   const recipe = dialog.querySelector(".product-recipe ul");
   const method = dialog.querySelector(".product-method");
   const addLabel = dialog.querySelector(".product-dialog-done span");
-  const openButton = document.querySelector(".order-open-button");
+  const openButton = document.querySelector(".catalog-order-button");
   const countLabel = openButton.querySelector(".order-count");
   const emptyState = orderDialog.querySelector(".order-empty");
   const emptyCopy = emptyState.querySelector("p");
@@ -33,10 +33,24 @@
   const form = orderDialog.querySelector(".order-form");
   const note = orderDialog.querySelector(".order-note");
   const lineTemplate = document.getElementById("order-line-template");
+  const baristaDialog = document.querySelector(".barista-dialog");
+  const baristaLog = document.querySelector(".barista-log");
+  const baristaForm = document.querySelector(".barista-form");
+  const baristaInput = baristaForm.querySelector("input");
   const defaultEmpty = emptyCopy.textContent;
   const defaultNote = note.textContent;
-  let cart = {};
+  const modifierGroups = [
+    ["milk", "Milk"],
+    ["sweetness", "Sweetness"],
+    ["temperature", "Served"],
+  ];
+  let cart = [];
   let currentSlug = "";
+  let selectedModifiers = [];
+  let guestPreferences = { milk: "", sweetness: "", temperature: "" };
+  let transcript = [];
+  let baristaReady = false;
+  let baristaBusy = false;
   let category = "daily-classics";
 
   function peso(amount) {
@@ -61,8 +75,22 @@
     return frame;
   }
 
-  function chosenItems() {
-    return items.filter((item) => (cart[item.slug] || 0) > 0);
+  function lineKey(slug, modifiers) {
+    return slug + "|" + (modifiers || []).slice().sort().join(",");
+  }
+
+  function unitPrice(item, modifiers) {
+    const extra = (item.modifiers || [])
+      .filter((modifier) => (modifiers || []).includes(modifier.slug))
+      .reduce((sum, modifier) => sum + Number(modifier.price), 0);
+    return Number(item.price) + extra;
+  }
+
+  function modifierLabels(item, modifiers) {
+    return (item.modifiers || [])
+      .filter((modifier) => (modifiers || []).includes(modifier.slug))
+      .map((modifier) => modifier.label)
+      .join(", ");
   }
 
   function visibleItems() {
@@ -161,7 +189,7 @@
       add.setAttribute("aria-label", "Add " + item.name + " to your order");
       add.append(icon("plus"), document.createElement("span"));
       add.lastElementChild.textContent = "Add to order";
-      add.addEventListener("click", () => addItem(item.slug));
+      add.addEventListener("click", () => addLine(item.slug, [], 1));
       card.append(details, add);
       grid.append(card);
     });
@@ -188,9 +216,11 @@
   }
 
   function renderCart() {
-    const chosen = chosenItems();
-    const count = chosen.reduce((sum, item) => sum + cart[item.slug], 0);
-    const total = chosen.reduce((sum, item) => sum + Number(item.price) * cart[item.slug], 0);
+    const count = cart.reduce((sum, line) => sum + line.quantity, 0);
+    const total = cart.reduce((sum, line) => {
+      const item = bySlug.get(line.slug);
+      return item ? sum + unitPrice(item, line.modifiers) * line.quantity : sum;
+    }, 0);
     countLabel.textContent = String(count);
     openButton.setAttribute(
       "aria-label",
@@ -199,19 +229,24 @@
     emptyState.hidden = count > 0;
     bag.hidden = count === 0;
     lineList.replaceChildren();
-    chosen.forEach((item) => {
+    cart.forEach((entry) => {
+      const item = bySlug.get(entry.slug);
+      if (!item) return;
       const line = lineTemplate.content.firstElementChild.cloneNode(true);
       const info = line.querySelectorAll(".order-line-info span, .order-line-info strong");
+      const labels = modifierLabels(item, entry.modifiers);
       line.querySelector(".order-line-photo").append(sprite(item, "order-line-sprite"));
       info[0].textContent = item.category;
       info[1].textContent = item.name;
-      info[2].textContent = item.price_label + " each";
-      line.querySelector(".order-quantity > span").textContent = String(cart[item.slug]);
+      info[2].hidden = !labels;
+      info[2].textContent = labels;
+      info[3].textContent = peso(unitPrice(item, entry.modifiers)) + " each";
+      line.querySelector(".order-quantity > span").textContent = String(entry.quantity);
       line.querySelector('[data-step="-1"]').setAttribute("aria-label", "Remove one " + item.name);
       line.querySelector('[data-step="1"]').setAttribute("aria-label", "Add one " + item.name);
       line.querySelector(".order-quantity").setAttribute("aria-label", item.name + " quantity");
       line.querySelectorAll("[data-step]").forEach((button) => {
-        button.addEventListener("click", () => changeQuantity(item.slug, Number(button.dataset.step)));
+        button.addEventListener("click", () => changeQuantity(entry.key, Number(button.dataset.step)));
       });
       lineList.append(line);
     });
@@ -219,22 +254,36 @@
     totalPrice.textContent = peso(total);
   }
 
-  function changeQuantity(slug, delta) {
-    const next = (cart[slug] || 0) + delta;
-    if (next <= 0) delete cart[slug];
-    else cart[slug] = Math.min(next, 99);
+  function changeQuantity(key, delta) {
+    const entry = cart.find((line) => line.key === key);
+    if (!entry) return;
+    entry.quantity += delta;
+    if (entry.quantity <= 0) cart = cart.filter((line) => line.key !== key);
+    else entry.quantity = Math.min(entry.quantity, 99);
     renderCart();
   }
 
-  function addItem(slug) {
-    changeQuantity(slug, 1);
-    if (dialog.open) dialog.close();
+  function addLine(slug, modifiers, quantity) {
+    const item = bySlug.get(slug);
+    if (!item) return;
+    const chosen = (item.modifiers || [])
+      .map((modifier) => modifier.slug)
+      .filter((modifier) => (modifiers || []).includes(modifier));
+    const key = lineKey(slug, chosen);
+    const entry = cart.find((line) => line.key === key);
+    const amount = quantity || 1;
+    if (entry) entry.quantity = Math.min(entry.quantity + amount, 99);
+    else cart.push({ key: key, slug: slug, modifiers: chosen, quantity: Math.min(amount, 99) });
+    renderCart();
   }
 
   function openItem(slug) {
     const item = bySlug.get(slug);
     if (!item) return;
     currentSlug = slug;
+    selectedModifiers = ["milk", "sweetness", "temperature"]
+      .map((group) => guestPreferences[group])
+      .filter((modifier) => modifier && (item.modifiers || []).some((choice) => choice.slug === modifier));
     photo.querySelectorAll(".menu-product-sprite").forEach((frame) => frame.remove());
     photo.prepend(sprite(item, "catalog-detail-sprite"));
     categoryLabel.textContent = item.category;
@@ -242,8 +291,8 @@
     title.textContent = item.name;
     description.textContent = item.description;
     notes.textContent = item.notes;
-    price.textContent = item.price_label;
-    addLabel.textContent = "Add to order · " + item.price_label;
+    renderModifiers(item);
+    updateDialogPrice(item);
     recipe.replaceChildren();
     item.recipe.forEach((line) => {
       const entry = document.createElement("li");
@@ -252,6 +301,42 @@
     });
     method.textContent = item.method;
     dialog.showModal();
+  }
+
+  function renderModifiers(item) {
+    const host = dialog.querySelector(".product-modifiers");
+    host.replaceChildren();
+    modifierGroups.forEach(([group, label]) => {
+      const choices = (item.modifiers || []).filter((modifier) => modifier.group === group);
+      if (!choices.length) return;
+      const row = document.createElement("div");
+      row.className = "modifier-row";
+      const name = document.createElement("span");
+      name.textContent = label;
+      const options = document.createElement("div");
+      options.className = "modifier-options";
+      choices.forEach((modifier) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.textContent = modifier.label;
+        button.setAttribute("aria-pressed", String(selectedModifiers.includes(modifier.slug)));
+        button.addEventListener("click", () => {
+          const remaining = selectedModifiers.filter((slug) => !choices.some((choice) => choice.slug === slug));
+          selectedModifiers = selectedModifiers.includes(modifier.slug) ? remaining : remaining.concat(modifier.slug);
+          renderModifiers(item);
+          updateDialogPrice(item);
+        });
+        options.append(button);
+      });
+      row.append(name, options);
+      host.append(row);
+    });
+  }
+
+  function updateDialogPrice(item) {
+    const label = peso(unitPrice(item, selectedModifiers));
+    price.textContent = label;
+    addLabel.textContent = "Add to order · " + label;
   }
 
   function csrfToken() {
@@ -272,7 +357,8 @@
   });
   dialog.querySelector(".product-dialog-close").addEventListener("click", () => dialog.close());
   dialog.querySelector(".product-dialog-done").addEventListener("click", () => {
-    if (currentSlug) addItem(currentSlug);
+    if (currentSlug) addLine(currentSlug, selectedModifiers, 1);
+    if (dialog.open) dialog.close();
   });
   dialog.addEventListener("click", (event) => {
     if (event.target === dialog) dialog.close();
@@ -289,8 +375,7 @@
   });
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
-    const chosen = chosenItems();
-    if (!chosen.length) return;
+    if (!cart.length) return;
     note.textContent = defaultNote;
     const response = await fetch("/orders/", {
       method: "POST",
@@ -302,7 +387,11 @@
         name: form.querySelector("#customer-name").value,
         phone: form.querySelector("#customer-phone").value,
         pickup: form.querySelector("#pickup-time").value,
-        lines: chosen.map((item) => ({ slug: item.slug, quantity: cart[item.slug] })),
+        lines: cart.map((line) => ({
+          slug: line.slug,
+          quantity: line.quantity,
+          modifiers: line.modifiers,
+        })),
       }),
     });
     if (!response.ok) {
@@ -310,10 +399,141 @@
       note.textContent = payload.error || "We couldn't save that order.";
       return;
     }
-    cart = {};
+    cart = [];
     form.reset();
     emptyCopy.textContent = "We'll have it ready for pickup.";
+    baristaReady = false;
     renderCart();
+  });
+
+  function prefill(name, phone, pickup) {
+    const nameInput = form.querySelector("#customer-name");
+    const phoneInput = form.querySelector("#customer-phone");
+    const pickupInput = form.querySelector("#pickup-time");
+    if (name && !nameInput.value) nameInput.value = name;
+    if (phone && !phoneInput.value) phoneInput.value = phone;
+    if (pickup && !pickupInput.value) pickupInput.value = pickup;
+  }
+
+  function appendExchange(userText, payload) {
+    if (userText) {
+      const mine = document.createElement("p");
+      mine.className = "barista-user";
+      mine.textContent = userText;
+      baristaLog.append(mine);
+    }
+    const reply = document.createElement("div");
+    reply.className = "barista-reply";
+    const say = document.createElement("p");
+    say.textContent = payload.say || "";
+    reply.append(say);
+    (payload.items || []).forEach((suggestion) => reply.append(suggestionCard(suggestion)));
+    if (payload.recall && payload.recall.phone) {
+      const confirm = document.createElement("button");
+      confirm.type = "button";
+      confirm.className = "barista-recall";
+      confirm.textContent = payload.recall.prompt;
+      confirm.addEventListener("click", () => send("", payload.recall.phone));
+      reply.append(confirm);
+    }
+    baristaLog.append(reply);
+    baristaLog.scrollTop = baristaLog.scrollHeight;
+  }
+
+  function suggestionCard(suggestion) {
+    const item = bySlug.get(suggestion.slug);
+    const card = document.createElement("article");
+    card.className = "barista-card";
+    if (item) {
+      const image = document.createElement("span");
+      image.className = "barista-card-image";
+      image.append(sprite(item));
+      card.append(image);
+    }
+    const copy = document.createElement("div");
+    const name = document.createElement("strong");
+    name.textContent = suggestion.name;
+    const reason = document.createElement("p");
+    reason.textContent = suggestion.reason || "";
+    const add = document.createElement("button");
+    add.type = "button";
+    add.className = "catalog-card-add";
+    add.append(icon("plus"), document.createTextNode(" Add · " + (suggestion.unit_price_label || suggestion.price_label)));
+    add.addEventListener("click", () => addLine(suggestion.slug, suggestion.selected_modifiers || [], 1));
+    copy.append(name, reason, add);
+    card.append(copy);
+    return card;
+  }
+
+  async function loadBarista() {
+    const response = await fetch("/barista/");
+    const payload = await response.json().catch(() => ({}));
+    if (!response.ok) {
+      if (!baristaLog.childElementCount) appendExchange("", { say: payload.error || "The barista is away from the bar right now." });
+      return;
+    }
+    guestPreferences = payload.preferences || guestPreferences;
+    prefill(payload.name, payload.phone, "");
+    if (!baristaLog.childElementCount) appendExchange("", payload);
+    baristaReady = true;
+  }
+
+  async function send(message, confirmPhone) {
+    if (baristaBusy) return;
+    const history = transcript.slice(-8);
+    if (message) transcript.push({ role: "user", content: message });
+    baristaBusy = true;
+    baristaForm.querySelector("button").disabled = true;
+    try {
+      const response = await fetch("/barista/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRFToken": csrfToken(),
+        },
+        body: JSON.stringify({
+          message: message,
+          history: history,
+          cart: cart.map((line) => ({
+            slug: line.slug,
+            quantity: line.quantity,
+            modifiers: line.modifiers,
+          })),
+          confirm_phone: confirmPhone || "",
+        }),
+      });
+      const payload = await response.json().catch(() => ({}));
+      if (!response.ok) {
+        appendExchange(message, { say: payload.error || "The barista is away from the bar right now." });
+        return;
+      }
+      if (payload.say) transcript.push({ role: "assistant", content: payload.say });
+      (payload.cart || []).forEach((line) => addLine(line.slug, line.modifiers || [], line.quantity || 1));
+      if (payload.preferences) guestPreferences = payload.preferences;
+      prefill(payload.name, payload.phone, payload.pickup);
+      appendExchange(message, payload);
+    } finally {
+      baristaBusy = false;
+      baristaForm.querySelector("button").disabled = false;
+      baristaInput.focus();
+    }
+  }
+
+  document.querySelector(".barista-open-button").addEventListener("click", async () => {
+    baristaDialog.showModal();
+    if (!baristaReady) await loadBarista();
+    baristaInput.focus();
+  });
+  baristaDialog.querySelector(".product-dialog-close").addEventListener("click", () => baristaDialog.close());
+  baristaDialog.addEventListener("click", (event) => {
+    if (event.target === baristaDialog) baristaDialog.close();
+  });
+  baristaForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const message = baristaInput.value.trim();
+    if (!message) return;
+    baristaInput.value = "";
+    send(message, "");
   });
 
   renderFilters();

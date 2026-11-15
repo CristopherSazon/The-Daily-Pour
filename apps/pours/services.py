@@ -1,6 +1,7 @@
 from django.templatetags.static import static
 
 from .models import Category, MenuItem
+from .modifiers import for_category
 
 
 class MenuService:
@@ -40,6 +41,15 @@ class MenuService:
             'featured_image': static(item.static_featured) if item.static_featured else '',
             'method': item.method,
             'recipe': [line.text for line in item.recipe_lines.all()],
+            'modifiers': [
+                {
+                    'slug': modifier['slug'],
+                    'label': modifier['label'],
+                    'group': modifier['group'],
+                    'price': f'{modifier["price"]:.2f}',
+                }
+                for modifier in for_category(item.category.slug)
+            ],
         }
 
     def home_context(self):

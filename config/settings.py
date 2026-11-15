@@ -25,7 +25,10 @@ def load_env(path):
         if not line or line.startswith('#') or '=' not in line:
             continue
         key, value = line.split('=', 1)
-        os.environ.setdefault(key.strip(), value.strip().strip('"').strip("'"))
+        key = key.strip()
+        value = value.strip().strip('"').strip("'")
+        if value and not os.environ.get(key):
+            os.environ[key] = value
 
 
 load_env(BASE_DIR / '.env')
@@ -54,6 +57,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'apps.pours',
     'apps.orders',
+    'apps.ai.barista',
 ]
 
 MIDDLEWARE = [
@@ -136,6 +140,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.1/howto/static-files/
 
 STATIC_URL = 'static/'
+
+GROQ_API_KEY = os.environ.get('GROQ_API_KEY', '')
+GROQ_BASE_URL = 'https://api.groq.com/openai/v1'
+BARISTA_MODEL = os.environ.get('BARISTA_MODEL', 'openai/gpt-oss-20b')
 
 
 # Email

@@ -1,6 +1,7 @@
 from django.db import transaction
 
 from apps.pours.models import MenuItem
+from apps.pours.modifiers import ModifierError, clean_modifiers, modifier_total
 
 from .models import Order, OrderLine
 
@@ -26,12 +27,17 @@ class OrderService:
         ):
             raise OrderError('Add your name, phone, pickup time, and at least one item.')
 
-        quantities = {}
+        pending = []
         for line in lines:
             if not isinstance(line, dict):
                 raise OrderError('Each item needs a slug and a quantity.')
             slug = str(line.get('slug', '')).strip()
             quantity = line.get('quantity')
+            raw_modifiers = line.get('modifiers', [])
+            if raw_modifiers is None:
+                raw_modifiers = []
+            if not isinstance(raw_modifiers, list):
+                raise OrderError('One of those changes is not on the menu.')
             if (
                 not slug
                 or isinstance(quantity, bool)
@@ -40,13 +46,25 @@ class OrderService:
                 or quantity > 99
             ):
                 raise OrderError('Each item needs a quantity from 1 to 99.')
-            quantities[slug] = quantities.get(slug, 0) + quantity
-            if quantities[slug] > 99:
-                raise OrderError('Each item needs a quantity from 1 to 99.')
+            pending.append((slug, quantity, raw_modifiers))
 
-        items = {item.slug: item for item in MenuItem.objects.filter(slug__in=quantities)}
-        if set(items) != set(quantities):
+        slugs = {slug for slug, _quantity, _modifiers in pending}
+        items = {
+            item.slug: item
+            for item in MenuItem.objects.select_related('category').filter(slug__in=slugs)
+        }
+        if set(items) != slugs:
             raise OrderError('One of those items is no longer on the menu.')
+
+        grouped = {}
+        for slug, quantity, raw_modifiers in pending:
+            try:
+                modifiers = tuple(clean_modifiers(items[slug].category.slug, raw_modifiers))
+            except ModifierError:
+                raise OrderError('One of those changes is not on the menu.') from None
+            grouped[(slug, modifiers)] = grouped.get((slug, modifiers), 0) + quantity
+            if grouped[(slug, modifiers)] > 99:
+                raise OrderError('Each item needs a quantity from 1 to 99.')
 
         with transaction.atomic():
             order = Order.objects.create(
@@ -60,9 +78,10 @@ class OrderService:
                         order=order,
                         item=items[slug],
                         quantity=quantity,
-                        unit_price=items[slug].price,
+                        modifiers=list(modifiers),
+                        unit_price=items[slug].price + modifier_total(modifiers),
                     )
-                    for slug, quantity in quantities.items()
+                    for (slug, modifiers), quantity in grouped.items()
                 ]
             )
         return order

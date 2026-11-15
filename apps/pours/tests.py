@@ -41,6 +41,9 @@ class MenuApiTests(TestCase):
         )
         self.assertEqual(payload['categories'][0]['items'][0]['slug'], 'double-espresso')
         self.assertEqual(payload['categories'][1]['items'][0]['slug'], 'honey-oat-latte')
+        honey_modifiers = [modifier['slug'] for modifier in payload['categories'][1]['items'][0]['modifiers']]
+        self.assertIn('oat-milk', honey_modifiers)
+        self.assertEqual(payload['categories'][4]['items'][-1]['modifiers'], [])
 
     def test_home_renders_the_design(self):
         response = self.client.get('/')
@@ -70,6 +73,7 @@ class MenuApiTests(TestCase):
         self.assertContains(response, 'Chocolate chunk cookie')
         self.assertContains(response, 'Find a favorite')
         self.assertContains(response, 'Your order')
+        self.assertContains(response, 'Ask the barista')
 
     def test_price_label_keeps_centavos(self):
         item = MenuItem.objects.get(slug='cloud-matcha')
